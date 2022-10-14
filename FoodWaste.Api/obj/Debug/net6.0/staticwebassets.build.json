@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "PZ23iHbA1PGmPAnwdKNZIyVPL66ry4kHWvSApg7mnQQ=",
+  "Source": "FoodWaste.Api",
+  "BasePath": "_content/FoodWaste.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

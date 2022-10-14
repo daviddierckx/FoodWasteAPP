@@ -1,0 +1,88 @@
+﻿@{
+  Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FoodWasteMVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FoodWasteMVC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+   
+                <div class="hero">
+                    <nav>
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="logo">Avans Foodie</a>
+                        <ul>
+                            <li>
+                                <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li>
+                                <a  asp-area="" asp-controller="Product" asp-action="Index">Onze Producten</a>
+                            </li>
+                @if (!User.Identity.IsAuthenticated)
+                {
+
+                    <li>
+                        <a asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                    </li>
+                }else{
+                    <li>
+                        <a  asp-area="" asp-controller="Reserveringen" asp-action="Index">Mijn Reserveringen
+                        </a>
+                    </li>
+                                <li>
+                                    <a asp-area="" asp-controller="Account" asp-action="Logout">
+                                        <button class="btn btnbtn-outline-danger">Logout</button>
+                                    </a>
+                                </li>
+
+                          }
+                          </ul>
+        </nav>
+        <div class="right-sidebar"></div>
+        <div class="content">
+            <div class="left">
+                <h2>YUMMY!</h2>
+                <h3>Ontdek Ons ​​Restaurant<br> & Heerlijk eten</h3>
+               <button class="btn btn-success">Onze Maaltijden</button>
+            </div>
+            <div class="right">
+@*                <img src="~/veg.png" class="veg">
+*@                <img src="~/pngegg (2).png" class="plate">
+            </div>
+        </div>
+                </div>
+               @* <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " asp-area="" asp-controller="Transactions" asp-action="Index">Transactions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>*@
+     @*       </div>
+        </nav>
+    </header>*@
+ 
+ 
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

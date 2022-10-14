@@ -1,0 +1,49 @@
+﻿@using FoodWaste.Domain
+@using FoodWaste.Domain.Enums
+@model Pakket
+
+<form method="post" asp-action="Create">
+    <div class="form-group">
+        <label asp-for="BeschrijvendeNaam">Beschrijvende Naam</label>
+        <input asp-for="BeschrijvendeNaam" class="form-control">
+        <span asp-validation-for="BeschrijvendeNaam" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Stad">Stad</label>
+        <select asp-for="Stad" asp-items="@Html.GetEnumSelectList<Stad>()" class="form-control" placeholder="Foto url...">
+            <option>--Select--</option>
+        </select>
+        <span asp-validation-for="Stad" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="Kantine">Kantine</label>
+        <select asp-for="Kantine" asp-items="@Html.GetEnumSelectList<Locatie>()" class="form-control" placeholder="Foto url...">
+            <option>--Select--</option>
+        </select>
+        <span asp-validation-for="Kantine" class="text-danger"></span>
+
+    </div>
+    <div class="form-check">
+        <label class="form-check-label" asp-for="Meerderjarig">Meerderjarig?</label>
+
+        <input  class="form-check-input"  asp-for="Meerderjarig">
+        <span asp-validation-for="Meerderjarig" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="Prijs">Prijs</label>
+
+        <input type="number" class="form-control" asp-for="Prijs">
+        <span asp-validation-for="Prijs" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="TypeMaaltijd">Type Maaltijd</label>
+        <select asp-for="TypeMaaltijd" asp-items="@Html.GetEnumSelectList<Maaltijd>()" class="form-control" placeholder="Foto url...">
+            <option>--Select--</option>
+        </select>
+        <span asp-validation-for="TypeMaaltijd" class="text-danger"></span>
+        </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

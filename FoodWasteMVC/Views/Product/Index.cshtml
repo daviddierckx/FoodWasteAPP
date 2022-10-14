@@ -1,0 +1,55 @@
+﻿@using FoodWaste.Domain
+@model IEnumerable<Product>
+
+@{
+}
+<main role="main">
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Onze Producten</h1>
+            <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+            <p>
+                <a asp-controller="Product" asp-action="Create">Product Toevoegen</a>
+            </p>
+        </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row">
+                @foreach(var item in Model){
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <img class="card-img-top" src="@item.Foto" width="100%" height="225" alt="Card image cap">
+                        <div class="card-body">
+                                <p class="card-text">@item.BeschrijvendeNaam</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a type="btn btn-succes" asp-controller="Product" asp-action="Detail" asp-route-id="@item.Id"
+                                                class="btn btn-sm btn-outline-secondary">View</a>
+                                                @if(User.Identity.IsAuthenticated && User.IsInRole("student")){
+                                        <a  class="btn btn-sm btn-outline-secondary" asp-controller="Product" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                        <a class="btn btn-sm btn-outline-secondary" asp-controller="Product" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                                }
+                                    </div>
+                                    @if (item.Alcohol)
+                                    {
+                                        <small class="text-muted" style="color: forestgreen;">Alcohol</small>
+                                        }
+                                 
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                }
+            </div>
+        </div>
+    </div>
+
+</main>
