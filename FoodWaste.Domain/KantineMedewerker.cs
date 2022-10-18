@@ -13,6 +13,7 @@ namespace FoodWaste.Domain
     {
         [Key]
         public int Id { get; set; }
+        public string Naam { get; set; }
         public string Personeelsnummer { get; set; }
         public Locatie Locatie { get; set; }
         [ForeignKey("AppUser")]

@@ -28,9 +28,9 @@ namespace FoodWaste.Domain
         public bool Meerderjarig { get; set; }
         public int Prijs {get; set; }
         public Maaltijd TypeMaaltijd { get; set; }
-        [ForeignKey("Student")]
-        public int StudentId { get; set; }
-        public Student? GereserveerdDoor { get; set; }
+        [ForeignKey("AppUser")]
+        public string? AppUserId { get; set; }
+        public AppUser? GereserveerdDoor { get; set; }
 
     }
   

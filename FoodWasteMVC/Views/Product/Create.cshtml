@@ -1,7 +1,7 @@
 ﻿@using FoodWaste.Domain
 @model Product
 
-<form method="post" asp-action="Create">
+<form method="post" asp-action="Create" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="BeschrijvendeNaam">Beschrijvende Naam</label>
         <input asp-for="BeschrijvendeNaam" class="form-control">
@@ -9,7 +9,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Foto">Foto Url</label>
-        <input asp-for="Foto" class="form-control" placeholder="Foto url...">
+        <input asp-for="Foto" type="file" class="form-control" placeholder="Foto url...">
         <span asp-validation-for="Foto" class="text-danger"></span>
 
     </div>

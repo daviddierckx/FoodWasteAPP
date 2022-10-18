@@ -1,4 +1,5 @@
-﻿using FoodWaste.Application.Interfaces;
+﻿using FoodWaste.Application;
+using FoodWaste.Application.Interfaces;
 using FoodWaste.Domain;
 using FoodWaste.Infrastructure.Data;
 using Microsoft.AspNetCore.Http;
@@ -23,8 +24,8 @@ namespace FoodWaste.Infrastructure.Repository
         }
         public async Task<List<Pakket>> GetAllStudentPakkets()
         {
-            var curUser = _httpContextAccessor.HttpContext?.User;
-            var userPakket = _context.Pakkets.Where(r => r.GereserveerdDoor.AppUserId == curUser.ToString());
+            var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();
+            var userPakket = _context.Pakkets.Where(r => r.AppUserId == curUser);
             return userPakket.ToList();
         }
     }

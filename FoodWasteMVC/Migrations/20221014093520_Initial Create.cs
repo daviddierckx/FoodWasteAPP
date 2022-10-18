@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodWasteMVC.Migrations
 {
-    public partial class init : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -73,9 +73,10 @@ namespace FoodWasteMVC.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Naam = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Personeelsnummer = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Locatie = table.Column<int>(type: "int", nullable: false),
-                    AppUserId = table.Column<int>(type: "int", nullable: false)
+                    AppUserId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,9 +89,13 @@ namespace FoodWasteMVC.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Naam = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Geboortedatum = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EmailAdress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TelefoonNummer = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Studentnummer = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StudieStad = table.Column<int>(type: "int", nullable: false),
-                    AppUserId = table.Column<int>(type: "int", nullable: false)
+                    StudieStad = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AppUserId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -218,17 +223,22 @@ namespace FoodWasteMVC.Migrations
                     Meerderjarig = table.Column<bool>(type: "bit", nullable: false),
                     Prijs = table.Column<int>(type: "int", nullable: false),
                     TypeMaaltijd = table.Column<int>(type: "int", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false)
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    StudentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pakkets", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Pakkets_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Pakkets_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -292,6 +302,11 @@ namespace FoodWasteMVC.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Pakkets_AppUserId",
+                table: "Pakkets",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Pakkets_StudentId",
                 table: "Pakkets",
                 column: "StudentId");
@@ -332,10 +347,10 @@ namespace FoodWasteMVC.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Pakkets");
 
             migrationBuilder.DropTable(
-                name: "Pakkets");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Students");

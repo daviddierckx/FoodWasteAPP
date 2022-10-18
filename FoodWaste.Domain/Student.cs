@@ -13,7 +13,11 @@ namespace FoodWaste.Domain
     {
         [Key]
         public int Id { get; set; }
-       
+        public string Naam { get; set; }
+        //Minimaal 16 TODO
+        public DateTime Geboortedatum { get; set; }
+        public string EmailAdress { get; set; }
+        public string TelefoonNummer { get; set; }
         public string Studentnummer { get; set; }
         public string StudieStad { get; set; }
         [ForeignKey("AppUser")]

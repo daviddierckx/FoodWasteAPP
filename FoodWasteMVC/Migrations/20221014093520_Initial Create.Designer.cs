@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodWasteMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221010170215_init")]
-    partial class init
+    [Migration("20221014093520_Initial Create")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -134,11 +134,16 @@ namespace FoodWasteMVC.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AppUserId")
-                        .HasColumnType("int");
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Locatie")
                         .HasColumnType("int");
+
+                    b.Property<string>("Naam")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Personeelsnummer")
                         .IsRequired()
@@ -156,6 +161,9 @@ namespace FoodWasteMVC.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BeschrijvendeNaam")
                         .IsRequired()
@@ -176,7 +184,7 @@ namespace FoodWasteMVC.Migrations
                     b.Property<int>("Stad")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("TijdOphalen")
@@ -189,6 +197,8 @@ namespace FoodWasteMVC.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("StudentId");
 
@@ -232,15 +242,32 @@ namespace FoodWasteMVC.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AppUserId")
-                        .HasColumnType("int");
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmailAdress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Geboortedatum")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Naam")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Studentnummer")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StudieStad")
-                        .HasColumnType("int");
+                    b.Property<string>("StudieStad")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TelefoonNummer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -382,11 +409,13 @@ namespace FoodWasteMVC.Migrations
 
             modelBuilder.Entity("FoodWaste.Domain.Pakket", b =>
                 {
-                    b.HasOne("FoodWaste.Domain.Student", "GereserveerdDoor")
+                    b.HasOne("FoodWaste.Domain.AppUser", "GereserveerdDoor")
                         .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("FoodWaste.Domain.Student", null)
+                        .WithMany("Pakketen")
+                        .HasForeignKey("StudentId");
 
                     b.Navigation("GereserveerdDoor");
                 });
@@ -452,6 +481,11 @@ namespace FoodWasteMVC.Migrations
             modelBuilder.Entity("FoodWaste.Domain.Pakket", b =>
                 {
                     b.Navigation("Producten");
+                });
+
+            modelBuilder.Entity("FoodWaste.Domain.Student", b =>
+                {
+                    b.Navigation("Pakketen");
                 });
 #pragma warning restore 612, 618
         }

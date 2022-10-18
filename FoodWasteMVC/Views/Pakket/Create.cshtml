@@ -2,7 +2,7 @@
 @using FoodWaste.Domain.Enums
 @model Pakket
 
-<form method="post" asp-action="Create">
+<form method="post" asp-action="Create" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="BeschrijvendeNaam">Beschrijvende Naam</label>
         <input asp-for="BeschrijvendeNaam" class="form-control">

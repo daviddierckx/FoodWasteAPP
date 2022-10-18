@@ -65,6 +65,7 @@ namespace FoodWasteMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
         {
+
             if(!ModelState.IsValid) return View(registerViewModel);
             var user = await _userManager.FindByEmailAsync(registerViewModel.EmailAddress);
             if(user != null)
@@ -86,7 +87,11 @@ namespace FoodWasteMVC.Controllers
             var newStudent = new Student()
             {
                 Studentnummer = "1",
-                StudieStad = nameof(registerViewModel.StudieStad),
+                Naam = registerViewModel.EmailAddress,
+                TelefoonNummer = registerViewModel.TelefoonNummer,
+                Geboortedatum = registerViewModel.Geboortedatum,
+                EmailAdress=registerViewModel.EmailAddress,
+                StudieStad = registerViewModel.StudieStad.ToString(),
                 AppUserId = newUser.Id
             };
 

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "9Nr/JRpHu6q2mF4GDPqaoXhi6SjiUddk3nNUKxAg5hLUnmQAC1NtlBXRQ9SiR61FHBwcTuUrGKAAL9JNcQQCVQ==",
+  "dgSpecHash": "qehx5llHvUDZNeSHYT4NxuLFeK+xzz5gMEOD8vX5ej2jO7BYfzq6grwJP8+eZJE27L5NeyIUcxZJuBwMYl2YDw==",
   "success": true,
   "projectFilePath": "C:\\Users\\dierc\\FoodWaste\\FoodWaste.Infrastructure\\FoodWaste.Infrastructure.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\dierc\\.nuget\\packages\\cloudinarydotnet\\1.20.0\\cloudinarydotnet.1.20.0.nupkg.sha512",
     "C:\\Users\\dierc\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\dierc\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\dierc\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
@@ -18,6 +19,7 @@
     "C:\\Users\\dierc\\.nuget\\packages\\microsoft.aspnetcore.dataprotection.abstractions\\2.2.0\\microsoft.aspnetcore.dataprotection.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\dierc\\.nuget\\packages\\microsoft.aspnetcore.hosting.abstractions\\2.2.0\\microsoft.aspnetcore.hosting.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\dierc\\.nuget\\packages\\microsoft.aspnetcore.hosting.server.abstractions\\2.2.0\\microsoft.aspnetcore.hosting.server.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\dierc\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\dierc\\.nuget\\packages\\microsoft.aspnetcore.http\\2.2.0\\microsoft.aspnetcore.http.2.2.0.nupkg.sha512",
     "C:\\Users\\dierc\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\dierc\\.nuget\\packages\\microsoft.aspnetcore.http.extensions\\2.2.0\\microsoft.aspnetcore.http.extensions.2.2.0.nupkg.sha512",

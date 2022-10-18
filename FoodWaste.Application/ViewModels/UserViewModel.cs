@@ -10,5 +10,6 @@ namespace FoodWaste.Application.ViewModels
     public class UserViewModel
     {
         public List<Pakket> Pakkets { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using FoodWaste.Application.Interfaces;
+﻿using FoodWaste.Application;
+using FoodWaste.Application.Interfaces;
 using FoodWaste.Domain;
 using FoodWaste.Infrastructure.Data;
 using FoodWaste.Infrastructure.Repository;
@@ -9,10 +10,12 @@ namespace FoodWasteMVC.Controllers
     public class PakketController : Controller
     {
         private readonly IPakketRepo _pakketRepo;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public PakketController(IPakketRepo pakketRepo)
+        public PakketController(IPakketRepo pakketRepo, IHttpContextAccessor httpContextAccessor)
         {
             _pakketRepo = pakketRepo;
+            _httpContextAccessor = httpContextAccessor;
         }
         public async Task<IActionResult> Index()
         {
@@ -30,6 +33,7 @@ namespace FoodWasteMVC.Controllers
         }
         public IActionResult Create()
         {
+            var curUserID = _httpContextAccessor.HttpContext?.User.GetUserId();
             return View();
         }
         [HttpPost]

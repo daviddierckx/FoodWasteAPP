@@ -1,4 +1,5 @@
 ﻿using FoodWaste.Application.Interfaces;
+using FoodWaste.Application.ViewModels;
 using FoodWaste.Domain;
 using FoodWaste.Infrastructure.Data;
 using FoodWaste.Infrastructure.Repository;
@@ -12,10 +13,12 @@ namespace FoodWasteMVC.Controllers
     {
 
         private readonly IProductRepo _productRepo ;
+        private readonly IPhotoService _photoService;
 
-        public ProductController(IProductRepo productRepo)
+        public ProductController(IProductRepo productRepo, IPhotoService photoService)
         {
             _productRepo = productRepo;
+            _photoService = photoService;
         }
         public async Task<IActionResult> Index()
         {
@@ -38,14 +41,28 @@ namespace FoodWasteMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Product product)
+        public async Task<IActionResult> Create(CreatProductViewModel productVM)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(product);
+                var result = await _photoService.AddPhotoAsync(productVM.Foto);
+
+                var product = new Product
+                {
+                    BeschrijvendeNaam = productVM.BeschrijvendeNaam,
+                    Alcohol = productVM.Alcohol,
+                    Foto = result.Url.ToString()
+                };
+
+                _productRepo.Add(product);
+                return RedirectToAction("Index");
+
             }
-            _productRepo.Add(product);
-            return RedirectToAction("Index");
+            else
+            {
+                ModelState.AddModelError("", "Photo upload failed");
+            }
+            return View(productVM);
         }
         public async Task<IActionResult> Edit(int id)
         {

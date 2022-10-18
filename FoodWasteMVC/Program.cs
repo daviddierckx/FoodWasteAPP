@@ -1,5 +1,7 @@
 using FoodWaste.Application.Data;
+using FoodWaste.Application.Helpers;
 using FoodWaste.Application.Interfaces;
+using FoodWaste.Application.Services;
 using FoodWaste.Domain;
 using FoodWaste.Infrastructure.Data;
 using FoodWaste.Infrastructure.Repository;
@@ -18,8 +20,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IPakketRepo, PakketRepo>();
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
 builder.Services.AddScoped<IStudentRepo, StudentRepo>();
+builder.Services.AddScoped<IPhotoService, PhotoService>();
+
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 
 //DI for DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
