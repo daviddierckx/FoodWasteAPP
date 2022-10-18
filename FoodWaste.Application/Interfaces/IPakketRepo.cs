@@ -13,6 +13,8 @@ namespace FoodWaste.Application.Interfaces
         Task<Pakket> GetByIdAsync(int id);
         Task<Pakket> GetByIdAsyncNoTracking(int id);
         Task<IEnumerable<Pakket>> GetAllPaketsByProduct(string product);
+        Task<IEnumerable<Product>> GetAllProductsFromPakket(string productId);
+
         bool Add(Pakket pakket);
         bool Update(Pakket pakket);
         bool Delete(Pakket pakket);

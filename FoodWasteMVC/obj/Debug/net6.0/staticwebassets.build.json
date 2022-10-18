@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EnF5XrZjg26+npjr/xnadZWxc77THMwDV7k+HLmRyWI=",
+  "Hash": "xZCuFNL7LwPx13Vt2hG7xACpNTV/LGI8rBoPseSz+J4=",
   "Source": "FoodWasteMVC",
   "BasePath": "_content/FoodWasteMVC",
   "Mode": "Default",
@@ -51,6 +51,40 @@
       "OriginalItemSpec": "C:\\Users\\dierc\\FoodWaste\\FoodWasteMVC\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\FoodWasteMVC.bundle.scp.css"
     },
     {
+      "Identity": "C:\\Users\\dierc\\FoodWaste\\FoodWasteMVC\\wwwroot\\Chosen\\chosen.min.css",
+      "SourceId": "FoodWasteMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\dierc\\FoodWaste\\FoodWasteMVC\\wwwroot\\",
+      "BasePath": "_content/FoodWasteMVC",
+      "RelativePath": "Chosen/chosen.min.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Chosen\\chosen.min.css"
+    },
+    {
+      "Identity": "C:\\Users\\dierc\\FoodWaste\\FoodWasteMVC\\wwwroot\\Chosen\\chosen-sprite.png",
+      "SourceId": "FoodWasteMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\dierc\\FoodWaste\\FoodWasteMVC\\wwwroot\\",
+      "BasePath": "_content/FoodWasteMVC",
+      "RelativePath": "Chosen/chosen-sprite.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Chosen\\chosen-sprite.png"
+    },
+    {
       "Identity": "C:\\Users\\dierc\\FoodWaste\\FoodWasteMVC\\wwwroot\\css\\site.css",
       "SourceId": "FoodWasteMVC",
       "SourceType": "Discovered",
@@ -83,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\dierc\\FoodWaste\\FoodWasteMVC\\wwwroot\\js\\chosen.jquery.min.js",
+      "SourceId": "FoodWasteMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\dierc\\FoodWaste\\FoodWasteMVC\\wwwroot\\",
+      "BasePath": "_content/FoodWasteMVC",
+      "RelativePath": "js/chosen.jquery.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\chosen.jquery.min.js"
     },
     {
       "Identity": "C:\\Users\\dierc\\FoodWaste\\FoodWasteMVC\\wwwroot\\js\\site.js",

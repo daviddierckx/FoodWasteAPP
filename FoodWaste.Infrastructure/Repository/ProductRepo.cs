@@ -35,7 +35,7 @@ namespace FoodWaste.Infrastructure.Repository
         {
            return await _context.Products.ToListAsync();
         }
-
+        
         public async Task<Product> GetByIdAsync(int id)
         {
             //Product product = _context.Products.Include(a => a.Address).FirstOrDefault(c => c.Id == id); TODO

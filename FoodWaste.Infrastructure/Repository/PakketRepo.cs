@@ -43,7 +43,7 @@ namespace FoodWaste.Infrastructure.Repository
 
         public async Task<Pakket> GetByIdAsync(int id)
         {
-            return await _context.Pakkets.Include(i => i.Producten).FirstOrDefaultAsync();
+            return await _context.Pakkets.Include(i => i.ProductCollectie).FirstOrDefaultAsync();
         }
         public async Task<Pakket> GetByIdAsyncNoTracking(int id)
         {
@@ -62,5 +62,16 @@ namespace FoodWaste.Infrastructure.Repository
             _context.Update(pakket);
             return Save();
         }
+
+        public async Task<IEnumerable<Product>> GetAllProductsFromPakket(string productId)
+        {
+            List<int> productIds = productId.Split(',').Select(int.Parse).ToList();
+           
+            
+            
+            return await _context.Products.Where(c => productIds.Contains(c.Id)).ToListAsync();
+        }
+
+        
     }
 }

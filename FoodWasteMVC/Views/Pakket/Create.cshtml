@@ -1,6 +1,7 @@
-﻿@using FoodWaste.Domain
+﻿@using FoodWaste.Application.ViewModels
+@using FoodWaste.Domain
 @using FoodWaste.Domain.Enums
-@model Pakket
+@model CreatePakketViewModel
 
 <form method="post" asp-action="Create" enctype="multipart/form-data">
     <div class="form-group">
@@ -10,19 +11,34 @@
     </div>
     <div class="form-group">
         <label asp-for="Stad">Stad</label>
-        <select asp-for="Stad" asp-items="@Html.GetEnumSelectList<Stad>()" class="form-control" placeholder="Foto url...">
+        <select asp-for="Stad" asp-items="@Html.GetEnumSelectList<Stad>()" class="form-control">
             <option>--Select--</option>
         </select>
         <span asp-validation-for="Stad" class="text-danger"></span>
 
     </div>
     <div class="form-group">
+        <label>Selecteer producten</label>
+@*        @Html.DropDownListFor(model => model.SelectedProductId, new SelectList(Model.ProductCollectie,"Id","BeschrijvendeNaam"), new {id = "normalDropDown"})
+*@        @Html.ListBoxFor(model => model.SelectIDArray, new MultiSelectList(Model.ProductCollectie,"Id","BeschrijvendeNaam"), new {id = "multiSelectDropDown", multiple="multiple"})
+    </div>
+    <div class="form-group">
         <label asp-for="Kantine">Kantine</label>
-        <select asp-for="Kantine" asp-items="@Html.GetEnumSelectList<Locatie>()" class="form-control" placeholder="Foto url...">
+        <select asp-for="Kantine" asp-items="@Html.GetEnumSelectList<Locatie>()" class="form-control">
             <option>--Select--</option>
         </select>
         <span asp-validation-for="Kantine" class="text-danger"></span>
 
+    </div>
+    <div class="form-group">
+                        <label asp-for="TijdOphalen" class="control-label"></label>
+        <input type="date" asp-for="TijdOphalen" class="form-control" />
+                        <span asp-validation-for="TijdOphalen" class="text-danger"></span>
+                    </div>
+    <div class="form-group">
+        <label asp-for="TijdTotOphalen" class="control-label"></label>
+        <input type="date" asp-for="TijdTotOphalen" class="form-control" />
+        <span asp-validation-for="TijdTotOphalen" class="text-danger"></span>
     </div>
     <div class="form-check">
         <label class="form-check-label" asp-for="Meerderjarig">Meerderjarig?</label>
@@ -40,10 +56,26 @@
     </div>
     <div class="form-group">
         <label asp-for="TypeMaaltijd">Type Maaltijd</label>
-        <select asp-for="TypeMaaltijd" asp-items="@Html.GetEnumSelectList<Maaltijd>()" class="form-control" placeholder="Foto url...">
+        <select asp-for="TypeMaaltijd" asp-items="@Html.GetEnumSelectList<Maaltijd>()" class="form-control">
             <option>--Select--</option>
         </select>
         <span asp-validation-for="TypeMaaltijd" class="text-danger"></span>
         </div>
+    <div class="form-group">
+        <label asp-for="AppUserId">AppUserId</label>
+        <input asp-for="BeschrijvendeNaam" value="NULL" readonly class="form-control">
+        <span asp-validation-for="AppUserId" class="text-danger"></span>
+    </div>
     <button type="submit" class="btn btn-primary">Submit</button>
+
 </form>
+
+        @section scripts{
+            <script>
+                $(function(){
+                    $("#multiSelectDropDown").chosen({
+                        width:"50%"
+                    });
+                })
+            </script>
+        }
