@@ -2,7 +2,15 @@
 @using FoodWaste.Domain
 @using FoodWaste.Domain.Enums
 @model CreatePakketViewModel
-
+ @if (TempData["Error"] != null)
+        {
+    <div class="col-md-12 alert alert-danger alert-dismissible fade show">
+                <span>@TempData["Error"] </span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+        }
 <form method="post" asp-action="Create" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="BeschrijvendeNaam">Beschrijvende Naam</label>
@@ -20,7 +28,8 @@
     <div class="form-group">
         <label>Selecteer producten</label>
 @*        @Html.DropDownListFor(model => model.SelectedProductId, new SelectList(Model.ProductCollectie,"Id","BeschrijvendeNaam"), new {id = "normalDropDown"})
-*@        @Html.ListBoxFor(model => model.SelectIDArray, new MultiSelectList(Model.ProductCollectie,"Id","BeschrijvendeNaam"), new {id = "multiSelectDropDown", multiple="multiple"})
+        *@        @Html.ListBoxFor(model => model.SelectIDArray, new MultiSelectList(Model.ProductCollectie.ToList(),"Id","BeschrijvendeNaam"), new {id = "multiSelectDropDown", multiple="multiple",required="required"})
+
     </div>
     <div class="form-group">
         <label asp-for="Kantine">Kantine</label>
@@ -32,18 +41,18 @@
     </div>
     <div class="form-group">
                         <label asp-for="TijdOphalen" class="control-label"></label>
-        <input type="date" asp-for="TijdOphalen" class="form-control" />
+        <input type="date" asp-for="TijdOphalen" value="@DateTime.Today" class="form-control" />
                         <span asp-validation-for="TijdOphalen" class="text-danger"></span>
                     </div>
     <div class="form-group">
         <label asp-for="TijdTotOphalen" class="control-label"></label>
-        <input type="date" asp-for="TijdTotOphalen" class="form-control" />
+        <input type="date" asp-for="TijdTotOphalen" value="@DateTime.Today" class="form-control" />
         <span asp-validation-for="TijdTotOphalen" class="text-danger"></span>
     </div>
-    <div class="form-check">
+    <div class="form-check" style="visibility:hidden">
         <label class="form-check-label" asp-for="Meerderjarig">Meerderjarig?</label>
 
-        <input  class="form-check-input"  asp-for="Meerderjarig">
+        <input  class="form-check-input" checked="@ViewData["Alcohol"]"  asp-for="Meerderjarig">
         <span asp-validation-for="Meerderjarig" class="text-danger"></span>
 
     </div>
@@ -63,7 +72,7 @@
         </div>
     <div class="form-group">
         <label asp-for="AppUserId">AppUserId</label>
-        <input asp-for="BeschrijvendeNaam" value="NULL" readonly class="form-control">
+        <input asp-for="AppUserId" value="NULL" readonly class="form-control">
         <span asp-validation-for="AppUserId" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
@@ -71,6 +80,9 @@
 </form>
 
         @section scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
             <script>
                 $(function(){
                     $("#multiSelectDropDown").chosen({
@@ -78,4 +90,5 @@
                     });
                 })
             </script>
+
         }

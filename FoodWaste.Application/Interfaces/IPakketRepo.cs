@@ -1,4 +1,5 @@
 ﻿using FoodWaste.Domain;
+using FoodWaste.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace FoodWaste.Application.Interfaces
 {
     public interface IPakketRepo
     {
-        Task<IEnumerable<Pakket>> GetAll();
+        Task<IEnumerable<Pakket>> GetAll(string SortProperty, string SortPropertyKantine, SortOrder sortOrder, string sortOrderKantine);
         Task<Pakket> GetByIdAsync(int id);
         Task<Pakket> GetByIdAsyncNoTracking(int id);
         Task<IEnumerable<Pakket>> GetAllPaketsByProduct(string product);

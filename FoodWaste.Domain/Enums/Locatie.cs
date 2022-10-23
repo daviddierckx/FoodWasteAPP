@@ -11,5 +11,4 @@ namespace FoodWaste.Domain.Enums
         {
             LA, LD, LX, HL
         }
-   
 }

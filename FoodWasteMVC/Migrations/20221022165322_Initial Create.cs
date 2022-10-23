@@ -84,6 +84,21 @@ namespace FoodWasteMVC.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BeschrijvendeNaam = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Alcohol = table.Column<bool>(type: "bit", nullable: false),
+                    Foto = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Students",
                 columns: table => new
                 {
@@ -215,15 +230,16 @@ namespace FoodWasteMVC.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BeschrijvendeNaam = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    Stad = table.Column<int>(type: "int", nullable: false),
-                    Kantine = table.Column<int>(type: "int", nullable: false),
+                    SelectedProductId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Stad = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Kantine = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TijdOphalen = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TijdTotOphalen = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Meerderjarig = table.Column<bool>(type: "bit", nullable: false),
                     Prijs = table.Column<int>(type: "int", nullable: false),
-                    TypeMaaltijd = table.Column<int>(type: "int", nullable: false),
+                    TypeMaaltijd = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    StudentenIds = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StudentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -238,27 +254,6 @@ namespace FoodWasteMVC.Migrations
                         name: "FK_Pakkets_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BeschrijvendeNaam = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Alcohol = table.Column<bool>(type: "bit", nullable: false),
-                    Foto = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PakketId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Products_Pakkets_PakketId",
-                        column: x => x.PakketId,
-                        principalTable: "Pakkets",
                         principalColumn: "Id");
                 });
 
@@ -310,11 +305,6 @@ namespace FoodWasteMVC.Migrations
                 name: "IX_Pakkets_StudentId",
                 table: "Pakkets",
                 column: "StudentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_PakketId",
-                table: "Products",
-                column: "PakketId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -341,13 +331,13 @@ namespace FoodWasteMVC.Migrations
                 name: "KantineMedewerkers");
 
             migrationBuilder.DropTable(
+                name: "Pakkets");
+
+            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Pakkets");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

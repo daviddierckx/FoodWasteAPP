@@ -1,0 +1,71 @@
+﻿@using FoodWaste.Domain
+@using FoodWaste.Domain.Enums
+
+@model Pakket
+<h1>Are you sure you want to delete this pakket?</h1>
+<form method="post" asp-action="Delete" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="BeschrijvendeNaam">Beschrijvende Naam</label>
+        <input asp-for="BeschrijvendeNaam" class="form-control" readonly>
+        <span asp-validation-for="BeschrijvendeNaam" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Stad">Stad</label>
+        <input asp-for="Stad" class="form-control" readonly>
+
+        <span asp-validation-for="Stad" class="text-danger"></span>
+
+    </div>
+  
+    <div class="form-group">
+        <label asp-for="Kantine">Kantine</label>
+        <input asp-for="Kantine" class="form-control" readonly>
+
+        <span asp-validation-for="Kantine" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="TijdOphalen" class="control-label"></label>
+        <input type="date" asp-for="TijdOphalen" class="form-control" readonly />
+        <span asp-validation-for="TijdOphalen" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TijdTotOphalen" class="control-label"></label>
+        <input type="date" asp-for="TijdTotOphalen" class="form-control" readonly />
+        <span asp-validation-for="TijdTotOphalen" class="text-danger"></span>
+    </div>
+    <div class="form-check">
+        <label class="form-check-label" asp-for="Meerderjarig">Meerderjarig?</label>
+
+        <input class="form-check-input" asp-for="Meerderjarig" readonly>
+        <span asp-validation-for="Meerderjarig" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="Prijs">Prijs</label>
+
+        <input type="number" class="form-control" asp-for="Prijs" readonly>
+        <span asp-validation-for="Prijs" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="TypeMaaltijd">Type Maaltijd</label>
+        <input asp-for="TypeMaaltijd" class="form-control" readonly>
+
+        <span asp-validation-for="TypeMaaltijd" class="text-danger"></span>
+    </div>
+    <div class="form-group" style="visibility:hidden">
+        <label asp-for="AppUserId">AppUserId</label>
+        <input asp-for="AppUserId" readonly class="form-control">
+        <span asp-validation-for="AppUserId" class="text-danger"></span>
+    </div>
+
+</form>
+<div class="form-group">
+    <form action="Delete" method="post">
+        <input type="hidden" asp-for="Id"/>
+
+        <input type="submit" value="Confirm" class="btn btn-danger btn-lg float-right mt-3" />
+    </form>
+</div>
+

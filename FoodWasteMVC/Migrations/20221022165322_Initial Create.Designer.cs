@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodWasteMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221014093520_Initial Create")]
+    [Migration("20221022165322_Initial Create")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -169,8 +169,9 @@ namespace FoodWasteMVC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Kantine")
-                        .HasColumnType("int");
+                    b.Property<string>("Kantine")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Meerderjarig")
                         .HasColumnType("bit");
@@ -178,14 +179,19 @@ namespace FoodWasteMVC.Migrations
                     b.Property<int>("Prijs")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<string>("SelectedProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Stad")
-                        .HasColumnType("int");
+                    b.Property<string>("Stad")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("StudentId")
                         .HasColumnType("int");
+
+                    b.Property<string>("StudentenIds")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("TijdOphalen")
                         .HasColumnType("datetime2");
@@ -193,8 +199,9 @@ namespace FoodWasteMVC.Migrations
                     b.Property<DateTime>("TijdTotOphalen")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TypeMaaltijd")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeMaaltijd")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -224,12 +231,7 @@ namespace FoodWasteMVC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PakketId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PakketId");
 
                     b.ToTable("Products");
                 });
@@ -413,18 +415,13 @@ namespace FoodWasteMVC.Migrations
                         .WithMany()
                         .HasForeignKey("AppUserId");
 
-                    b.HasOne("FoodWaste.Domain.Student", null)
+                    b.HasOne("FoodWaste.Domain.Student", "Student")
                         .WithMany("Pakketen")
                         .HasForeignKey("StudentId");
 
                     b.Navigation("GereserveerdDoor");
-                });
 
-            modelBuilder.Entity("FoodWaste.Domain.Product", b =>
-                {
-                    b.HasOne("FoodWaste.Domain.Pakket", null)
-                        .WithMany("Producten")
-                        .HasForeignKey("PakketId");
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -476,11 +473,6 @@ namespace FoodWasteMVC.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("FoodWaste.Domain.Pakket", b =>
-                {
-                    b.Navigation("Producten");
                 });
 
             modelBuilder.Entity("FoodWaste.Domain.Student", b =>

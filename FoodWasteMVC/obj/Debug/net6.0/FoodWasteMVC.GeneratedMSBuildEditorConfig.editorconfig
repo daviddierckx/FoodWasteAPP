@@ -31,8 +31,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFra2V0XENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/dierc/FoodWaste/FoodWasteMVC/Views/Pakket/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFra2V0XERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/dierc/FoodWaste/FoodWasteMVC/Views/Pakket/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFra2V0XERldGFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dierc/FoodWaste/FoodWasteMVC/Views/Pakket/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFra2V0XEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/dierc/FoodWaste/FoodWasteMVC/Views/Pakket/Index.cshtml]

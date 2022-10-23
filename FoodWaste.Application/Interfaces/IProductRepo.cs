@@ -1,4 +1,5 @@
 ﻿using FoodWaste.Domain;
+using FoodWaste.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

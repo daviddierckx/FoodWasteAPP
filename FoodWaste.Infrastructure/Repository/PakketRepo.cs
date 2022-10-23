@@ -1,5 +1,6 @@
 ﻿using FoodWaste.Application.Interfaces;
 using FoodWaste.Domain;
+using FoodWaste.Domain.Enums;
 using FoodWaste.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -30,9 +31,44 @@ namespace FoodWaste.Infrastructure.Repository
             return Save();
         }
 
-        public async Task<IEnumerable<Pakket>> GetAll()
+        public async Task<IEnumerable<Pakket>> GetAll(string SortProperty, string SortPropertyKantine, SortOrder sortOrder, string sortOrderKantine)
         {
-            return await _context.Pakkets.ToListAsync();
+            IEnumerable<Pakket> pakkets = await _context.Pakkets.ToListAsync();
+
+            if (SortPropertyKantine.ToLower() == "kantine"){
+                if (sortOrderKantine == "LA")
+                    pakkets = pakkets.Where(p => p.Kantine == "LA");
+                else if (sortOrderKantine == "LX")
+                    pakkets = pakkets.Where(p => p.Kantine == "LX");
+                else if (sortOrderKantine == "HL")
+                    pakkets = pakkets.Where(p => p.Kantine == "HL");
+                else if (sortOrderKantine == "LD")
+                    pakkets = pakkets.Where(p => p.Kantine == "LD");
+                
+            }
+            if (SortProperty.ToLower() == "date")
+            {
+                if(sortOrder == SortOrder.Ascending)
+                {
+                    pakkets = pakkets.OrderBy(n => n.TijdOphalen).ToList();
+                }
+                else
+                {
+                    pakkets = pakkets.OrderByDescending(n => n.TijdOphalen).ToList(); //lambda
+                }
+            }
+            else
+            {
+                if (sortOrder == SortOrder.Ascending)
+                {
+                    pakkets = pakkets.OrderBy(k => k.Kantine).ToList();
+                }
+                else
+                {
+                    pakkets = pakkets.OrderByDescending(k => k.Kantine).ToList(); //lambda
+                }
+            }
+            return pakkets;
         }
 
         public async Task<IEnumerable<Pakket>> GetAllPaketsByProduct(string product)
@@ -72,6 +108,8 @@ namespace FoodWaste.Infrastructure.Repository
             return await _context.Products.Where(c => productIds.Contains(c.Id)).ToListAsync();
         }
 
-        
+       
+
+
     }
 }

@@ -10,5 +10,8 @@ namespace FoodWaste.Application.Interfaces
     public interface IUserRepo
     {
         Task<List<Pakket>> GetAllStudentPakkets();
+        Task<Student> GetStudentByAppuserId();
+
     }
+
 }
