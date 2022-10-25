@@ -31,5 +31,6 @@ namespace FoodWaste.Application.ViewModels
         [Required]
         [Display(Name = "Studie stad")]
         public Stad? StudieStad { get; set; }
+
     }
 }

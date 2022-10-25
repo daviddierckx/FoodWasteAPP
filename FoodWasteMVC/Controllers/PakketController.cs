@@ -7,6 +7,7 @@ using FoodWaste.Domain.Enums;
 using FoodWaste.Infrastructure.Data;
 using FoodWaste.Infrastructure.Repository;
 using FoodWasteMVC.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FoodWasteMVC.Controllers
@@ -44,19 +45,21 @@ namespace FoodWasteMVC.Controllers
             string sortproperty;
             string sortpropertyKantine;
 
-            var student = await _userRepo.GetStudentByAppuserId();
-
-            var bday = student.Geboortedatum;
-            DateTime now = DateTime.Today;
-            int age = now.Year - bday.Year;
-            if (age >= 18)
+            if (User.IsInRole("student"))
             {
-                ViewData["Meerderjarig"] = "+18";
-                Console.WriteLine("Meerderjarig");
-            }
+                var student = await _userRepo.GetStudentByAppuserId();
+                var bday = student.Geboortedatum;
+                DateTime now = DateTime.Today;
+                int age = now.Year - bday.Year;
+                if (age >= 18)
+                {
+                    ViewData["Meerderjarig"] = "+18";
+                    Console.WriteLine("Meerderjarig");
+                }
 
-            ViewData["Student"] = student.Id;
-            ViewData["Reserved"] = false;
+                ViewData["Student"] = student.Id;
+                ViewData["Reserved"] = false;
+            }
             switch (sortExpression.ToLower())
             {
                 case "date_desc":
@@ -139,6 +142,7 @@ namespace FoodWasteMVC.Controllers
             };
             return View(createPakketViewModel);
         }
+        [Authorize(Roles = "kantineMedewerker")]
         public IActionResult Create()
         {
             var curUserID = _httpContextAccessor.HttpContext?.User.GetUserId();
@@ -147,6 +151,7 @@ namespace FoodWasteMVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "kantineMedewerker")]
         public async Task<IActionResult> Create(CreatePakketViewModel pakketVM)
         {
             ViewData["Alcohol"] = "";
@@ -203,7 +208,7 @@ namespace FoodWasteMVC.Controllers
             
       
         }
-
+        [Authorize(Roles = "student")]
         public async Task<IActionResult> Reserve(int id)
         {
            var curUserID = _httpContextAccessor.HttpContext?.User.GetUserId();
@@ -226,6 +231,7 @@ namespace FoodWasteMVC.Controllers
             return View(createPakketViewModel);
         }
         [HttpPost]
+        [Authorize(Roles = "student")]
         public async Task<IActionResult> Reserve(int id, CreatePakketViewModel pakketvm)
         {
 
@@ -238,7 +244,15 @@ namespace FoodWasteMVC.Controllers
             {
                 studentIds = userPakket.StudentenIds.Split(',').Select(int.Parse).ToList();
             }
-            studentIds.Add(student.Id);
+            if(studentIds.Count == 0)
+            {
+                studentIds.Add(student.Id);
+            }
+            else
+            {
+                TempData["Error"] = "Dit pakket is al gereserveerd.";
+                return RedirectToAction("Index");
+            }
             var studentenlijst = string.Join(",", studentIds);
 
             if (_pakketRepo != null)
@@ -270,7 +284,17 @@ namespace FoodWasteMVC.Controllers
                     TypeMaaltijd = pakketvm.TypeMaaltijd.ToString(),
                     StudentenIds = studentenlijst
                 };
-                
+
+
+                var bday = student.Geboortedatum;
+                DateTime now = DateTime.Today;
+                int age = now.Year - bday.Year;
+                if (age < 18 && pakketvm.Meerderjarig)
+                {
+                    TempData["Error"] = "Reservatie geweigerd. Gebruiker is minderjarig en mag dit pakket niet reserveren.";
+                    return RedirectToAction("Index");
+                }
+
                 IEnumerable<Pakket> PakketUser = _context.Pakkets.Where(r => r.AppUserId == curUserID);
                 IEnumerable<Pakket> lijstTijdOphalen = PakketUser.Where(r => r.TijdOphalen == pakket.TijdOphalen);
                 if(lijstTijdOphalen.Count() > 0)
@@ -278,6 +302,8 @@ namespace FoodWasteMVC.Controllers
                     TempData["Error"] = "Je mag maximaal 1 pakket per afhaaldag reserveren";
                     return RedirectToAction("Index");
                 }
+
+               
                 _pakketRepo.Add(pakket);
                 _pakketRepo.Update(pakketUpdate);
                 return RedirectToAction("Index");
@@ -288,7 +314,7 @@ namespace FoodWasteMVC.Controllers
                 return View(pakketvm);
             }
         }
-
+        [Authorize(Roles = "kantineMedewerker")]
         public async Task<IActionResult> Edit(int id)
         {
            
@@ -316,8 +342,8 @@ namespace FoodWasteMVC.Controllers
             return View(pakketVM);
         }
 
-    //TODO Edit Post
-
+        //TODO Edit Post
+        [Authorize(Roles = "kantineMedewerker")]
         public async Task<IActionResult> Delete(int id)
         {
             var pakketDetails = await _pakketRepo.GetByIdAsyncNoTracking(id);

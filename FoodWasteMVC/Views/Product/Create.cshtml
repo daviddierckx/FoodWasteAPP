@@ -1,6 +1,7 @@
 ﻿@using FoodWaste.Domain
 @model Product
 
+<div class="center">
 <form method="post" asp-action="Create" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="BeschrijvendeNaam">Beschrijvende Naam</label>
@@ -21,7 +22,7 @@
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-
+</div>
 @section Scripts{
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

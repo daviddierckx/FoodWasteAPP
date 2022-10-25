@@ -2,6 +2,8 @@
 @using FoodWaste.Domain
 @using FoodWaste.Domain.Enums
 @model EditPakketViewModel
+
+<div style="padding-left:1000px">
 @if (TempData["Error"] != null)
 {
     <div class="col-md-12 alert alert-danger">
@@ -75,7 +77,7 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 
 </form>
-
+</div>
 @section scripts{
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

@@ -3,6 +3,7 @@ using FoodWaste.Application.Interfaces;
 using FoodWaste.Application.ViewModels;
 using FoodWaste.Domain;
 using FoodWaste.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@ namespace FoodWasteMVC.Controllers
             _userManager = userManager;
 
         }
+        [Authorize(Roles = "student")]
         public async Task<IActionResult> Index()
         {
             var userPakkets = await _userRepo.GetAllStudentPakkets();

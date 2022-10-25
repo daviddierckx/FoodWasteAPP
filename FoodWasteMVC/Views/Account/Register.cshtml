@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-md-6 offset-3">
         <p>
-            <h4>Sign up for a new account</h4>
+            <h4>Sign up for a new account (Student)</h4>
         </p>
 
         @if (TempData["Error"] != null)
@@ -45,7 +45,7 @@
                         <span asp-validation-for="Geboortedatum" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                    <label asp-for="StudieStad">Kantine</label>
+                    <label asp-for="StudieStad">Studie Stad</label>
                     <select asp-for="StudieStad" asp-items="@Html.GetEnumSelectList<Stad>()" class="form-control" placeholder="Foto url...">
                         <option>--Select--</option>
                     </select>

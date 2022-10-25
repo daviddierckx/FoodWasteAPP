@@ -30,12 +30,12 @@ namespace FoodWaste.Application.ViewModels
         [DisplayName("Tijd Ophalen")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [DateGreaterThan(ErrorMessage = "Date should be equal or greater than current date")]
+        [DateGreaterThan(ErrorMessage = "Datum moet gelijk of groter zijn dan de huidige datum")]
         [DateMaxTwoDayAHead(ErrorMessage = "Maximaal 2 dagen vooruit plannen")]
         public DateTime TijdOphalen { get; set; }
         [DisplayName("Tijd Tot Ophalen")]
         [DataType(DataType.Date)]
-        [DateGreaterThanTijdOphalen(ErrorMessage = "Date should be greater than tijd ophalen")]
+        [DateEqualTijdOphalen(ErrorMessage = "Datum moet gelijk zijn aan de ophaaltijd")]
         public DateTime TijdTotOphalen { get; set; }
         public bool Meerderjarig { get; set; }
         public int Prijs { get; set; }

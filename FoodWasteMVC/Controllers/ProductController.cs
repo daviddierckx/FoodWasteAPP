@@ -4,6 +4,7 @@ using FoodWaste.Domain;
 using FoodWaste.Infrastructure.Data;
 using FoodWaste.Infrastructure.Repository;
 using FoodWasteMVC.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,13 +35,14 @@ namespace FoodWasteMVC.Controllers
             Product product = await _productRepo.GetByIdAsync(id);
             return View(product);
         }
-
+        [Authorize(Roles = "kantineMedewerker")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "kantineMedewerker")]
         public async Task<IActionResult> Create(CreatProductViewModel productVM)
         {
             if (ModelState.IsValid)
@@ -64,6 +66,7 @@ namespace FoodWasteMVC.Controllers
             }
             return View(productVM);
         }
+        [Authorize(Roles = "kantineMedewerker")]
         public async Task<IActionResult> Edit(int id)
         {
             var product = await _productRepo.GetByIdAsync(id);
@@ -77,6 +80,7 @@ namespace FoodWasteMVC.Controllers
             return View(productVM);
         }
         [HttpPost]
+        [Authorize(Roles = "kantineMedewerker")]
         public async Task<IActionResult> Edit(int id, EditProductViewModel productVM)
         {
             if (!ModelState.IsValid)

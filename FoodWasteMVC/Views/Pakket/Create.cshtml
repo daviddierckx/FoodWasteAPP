@@ -2,9 +2,11 @@
 @using FoodWaste.Domain
 @using FoodWaste.Domain.Enums
 @model CreatePakketViewModel
+
+<div style="padding-left:1000px">
  @if (TempData["Error"] != null)
         {
-    <div class="col-md-12 alert alert-danger alert-dismissible fade show">
+    <div class="col-md-3 alert alert-danger alert-dismissible fade show">
                 <span>@TempData["Error"] </span>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -41,12 +43,12 @@
     </div>
     <div class="form-group">
                         <label asp-for="TijdOphalen" class="control-label"></label>
-        <input type="date" asp-for="TijdOphalen" value="@DateTime.Today" class="form-control" />
+            <input type="datetime-local" asp-for="TijdOphalen" value="@DateTime.Today.ToString("yyyy-MM-ddTHH:mm")" class="form-control" />
                         <span asp-validation-for="TijdOphalen" class="text-danger"></span>
                     </div>
     <div class="form-group">
         <label asp-for="TijdTotOphalen" class="control-label"></label>
-        <input type="date" asp-for="TijdTotOphalen" value="@DateTime.Today" class="form-control" />
+            <input type="datetime-local" asp-for="TijdTotOphalen" value="@DateTime.Today.ToString("yyyy-MM-ddTHH:mm")" class="form-control" />
         <span asp-validation-for="TijdTotOphalen" class="text-danger"></span>
     </div>
     <div class="form-check" style="visibility:hidden">
@@ -78,7 +80,7 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 
 </form>
-
+</div>
         @section scripts{
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

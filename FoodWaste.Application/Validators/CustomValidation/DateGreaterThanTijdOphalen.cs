@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace FoodWaste.Application.Validators.CustomValidation
 {
-    internal class DateGreaterThanTijdOphalen:ValidationAttribute
+    internal class DateEqualTijdOphalen:ValidationAttribute
     {
         public override bool IsValid(object value)
         {
             DateTime propValue = Convert.ToDateTime(value);
-            if (propValue > DateGreaterThan.dateTimeTijdOphalen)
+            if (propValue.Date == DateGreaterThan.dateTimeTijdOphalen.Date)
                 return true;
             else
                 return false;

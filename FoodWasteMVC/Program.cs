@@ -23,6 +23,7 @@ builder.Services.AddScoped<IStudentRepo, StudentRepo>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 
 builder.Services.AddScoped<IUserRepo, UserRepo>();
+builder.Services.AddScoped<IMedewerkerRepo, MedewerkerRepo>();
 
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 
