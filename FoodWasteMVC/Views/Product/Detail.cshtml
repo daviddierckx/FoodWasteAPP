@@ -4,7 +4,7 @@
 @{
     var rnd = new Random();
     var list = ViewData["Products"] as IEnumerable<Product>;
-
+    var counter = 0;
     var randomlyOrdered = list.OrderBy(i => rnd.Next());
 }
 <!-- Page Content -->
@@ -45,12 +45,15 @@
     <div class="row">
         
         @foreach(var item in randomlyOrdered){
-           
+            if (counter == 4)
+                return;
             <div class="col-md-3 col-sm-6 mb-4">
                 <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.Id">
                 <img class="img-fluid" src="@item.Foto" alt="">
             </a>
             </div>
+            counter++;
+
         }
         
     </div>
