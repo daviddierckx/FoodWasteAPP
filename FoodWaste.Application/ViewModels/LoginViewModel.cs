@@ -11,6 +11,7 @@ namespace FoodWaste.Application.ViewModels
     {
         [Display(Name = "Email Address")]
         [Required(ErrorMessage ="Email address is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string EmailAddress { get; set; }
         [Required]
         [DataType(DataType.Password)]

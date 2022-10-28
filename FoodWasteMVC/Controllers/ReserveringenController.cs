@@ -23,7 +23,7 @@ namespace FoodWasteMVC.Controllers
         [Authorize(Roles = "student")]
         public async Task<IActionResult> Index()
         {
-            var userPakkets = await _userRepo.GetAllStudentPakkets();
+            var userPakkets =  _userRepo.GetAllStudentPakkets();
             var user = await _userManager.GetUserAsync(User);
             var userViewModel = new UserViewModel() { Pakkets = userPakkets, AppUser = user  };  
             return View(userViewModel);

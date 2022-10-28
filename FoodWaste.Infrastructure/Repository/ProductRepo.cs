@@ -31,9 +31,9 @@ namespace FoodWaste.Infrastructure.Repository
             return Save();
         }
         //TASK => Returning something when its , so can be nothing
-        public async Task<IEnumerable<Product>> GetAll()
+        public IEnumerable<Product> GetAll()
         {
-           return await _context.Products.ToListAsync();
+           return  _context.Products.ToList();
         }
         
         public async Task<Product> GetByIdAsync(int id)

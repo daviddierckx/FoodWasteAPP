@@ -30,10 +30,10 @@
             <ul>
                 @foreach (var item in Model.ProductCollectie)
                 {
-                    <li>@item.BeschrijvendeNaam</li>
+                    <li><a asp-controller="Product" asp-action="Detail" asp-route-id="@item.Id">@item.BeschrijvendeNaam </a></li>
+
 
                 }
-              
             </ul>
         </div>
 

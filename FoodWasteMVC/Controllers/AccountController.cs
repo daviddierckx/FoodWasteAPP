@@ -1,4 +1,5 @@
-﻿using FoodWaste.Application.Data;
+﻿using FoodWaste.Application;
+using FoodWaste.Application.Data;
 using FoodWaste.Application.Interfaces;
 using FoodWaste.Application.ViewModels;
 using FoodWaste.Domain;
@@ -95,7 +96,7 @@ namespace FoodWasteMVC.Controllers
             };
             var newStudent = new Student()
             {
-                Studentnummer = "1",
+                Studentnummer = StudentNummerGenerator.GenerateStudentNumber(),
                 Naam = registerViewModel.EmailAddress,
                 TelefoonNummer = registerViewModel.TelefoonNummer,
                 Geboortedatum = registerViewModel.Geboortedatum,
@@ -109,6 +110,7 @@ namespace FoodWasteMVC.Controllers
 
             if (newUserResponse.Succeeded)
             {
+                TempData["SuccessMessage"] = newUser.Naam + " Registered Successfully";
                 await _userManager.AddToRoleAsync(newUser, UserRoles.Student);
                 _studentRepo.Add(newStudent);
             }
@@ -158,6 +160,7 @@ namespace FoodWasteMVC.Controllers
 
             if (newMedewerkerResponse.Succeeded)
             {
+                TempData["SuccessMessage"] = newUser.Naam + " Registered Successfully";
                 await _userManager.AddToRoleAsync(newUser, UserRoles.KantineMedewerker);
                 _medewerkerRepo.Add(newMedewerker);
             }

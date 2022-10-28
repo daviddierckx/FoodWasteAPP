@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodWaste.Domain", "FoodWaste.Domain\FoodWaste.Domain.csproj", "{AF1763A0-DA46-4FAF-8E84-2BDBDE1C013E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodWaste.Tests", "FoodWaste.Tests\FoodWaste.Tests.csproj", "{07BD977F-8935-4831-9D84-7D33297E2660}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{AF1763A0-DA46-4FAF-8E84-2BDBDE1C013E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF1763A0-DA46-4FAF-8E84-2BDBDE1C013E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF1763A0-DA46-4FAF-8E84-2BDBDE1C013E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07BD977F-8935-4831-9D84-7D33297E2660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07BD977F-8935-4831-9D84-7D33297E2660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07BD977F-8935-4831-9D84-7D33297E2660}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07BD977F-8935-4831-9D84-7D33297E2660}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

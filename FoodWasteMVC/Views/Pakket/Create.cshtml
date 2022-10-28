@@ -33,14 +33,11 @@
         *@        @Html.ListBoxFor(model => model.SelectIDArray, new MultiSelectList(Model.ProductCollectie.ToList(),"Id","BeschrijvendeNaam"), new {id = "multiSelectDropDown", multiple="multiple",required="required"})
 
     </div>
-    <div class="form-group">
-        <label asp-for="Kantine">Kantine</label>
-        <select asp-for="Kantine" asp-items="@Html.GetEnumSelectList<Locatie>()" class="form-control">
-            <option>--Select--</option>
-        </select>
-        <span asp-validation-for="Kantine" class="text-danger"></span>
-
-    </div>
+        <div class="form-group">
+            <label asp-for="Kantine">Locatie</label>
+            <input asp-for="Kantine" value="@Model.Kantine" readonly class="form-control">
+            <span asp-validation-for="Kantine" class="text-danger"></span>
+        </div>
     <div class="form-group">
                         <label asp-for="TijdOphalen" class="control-label"></label>
             <input type="datetime-local" asp-for="TijdOphalen" value="@DateTime.Today.ToString("yyyy-MM-ddTHH:mm")" class="form-control" />
@@ -72,7 +69,7 @@
         </select>
         <span asp-validation-for="TypeMaaltijd" class="text-danger"></span>
         </div>
-    <div class="form-group">
+    <div class="form-group" style="visibility:hidden">
         <label asp-for="AppUserId">AppUserId</label>
         <input asp-for="AppUserId" value="NULL" readonly class="form-control">
         <span asp-validation-for="AppUserId" class="text-danger"></span>

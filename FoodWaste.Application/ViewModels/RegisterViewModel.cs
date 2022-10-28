@@ -1,4 +1,5 @@
-﻿using FoodWaste.Domain.Enums;
+﻿using FoodWaste.Application.Validators.CustomValidation;
+using FoodWaste.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,9 +13,11 @@ namespace FoodWaste.Application.ViewModels
     {
         [Display(Name = "Email address")]
         [Required(ErrorMessage ="Email address is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string EmailAddress { get; set; }
         [Required]
         [DataType(DataType.Password)]
+        [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+=!*()@%&]).{8,16}$", ErrorMessage = "Password not strong enough.")]
         public string Password { get; set; }
         [Display(Name ="Confirm Password")]
         [Required]
@@ -25,8 +28,11 @@ namespace FoodWaste.Application.ViewModels
         public string Naam { get; set; }
         [Required]
         [Display(Name = "Telefoon Nummer")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         public string TelefoonNummer { get; set; }
         [Required]
+        [MinumumLeeftijdAanmelden(ErrorMessage = "De leeftijd bij aanmelden voor een account is minimaal 16 jaar.")]
         public DateTime Geboortedatum { get; set; }
         [Required]
         [Display(Name = "Studie stad")]

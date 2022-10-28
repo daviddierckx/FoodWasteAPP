@@ -2,9 +2,13 @@
 @model Product
 
 @{
+    var rnd = new Random();
+    var list = ViewData["Products"] as IEnumerable<Product>;
+
+    var randomlyOrdered = list.OrderBy(i => rnd.Next());
 }
 <!-- Page Content -->
-<div class="container" style="margin-top:150px">
+<div class="container">
 
     <!-- Portfolio Item Heading -->
     <h1 class="my-4">
@@ -39,31 +43,16 @@
     <h3 class="my-4">Gerelateerd</h3>
 
     <div class="row">
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
+        
+        @foreach(var item in randomlyOrdered){
+           
+            <div class="col-md-3 col-sm-6 mb-4">
+                <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.Id">
+                <img class="img-fluid" src="@item.Foto" alt="">
             </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
-            </a>
-        </div>
-
+            </div>
+        }
+        
     </div>
     <!-- /.row -->
 

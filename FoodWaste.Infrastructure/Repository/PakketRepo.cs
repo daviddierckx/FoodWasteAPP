@@ -31,9 +31,9 @@ namespace FoodWaste.Infrastructure.Repository
             return Save();
         }
 
-        public async Task<IEnumerable<Pakket>> GetAll(string SortProperty, string SortPropertyKantine, SortOrder sortOrder, string sortOrderKantine)
+        public  IEnumerable<Pakket> GetAll(string SortProperty, string SortPropertyKantine, SortOrder sortOrder, string sortOrderKantine,string sortpropertyStad,string sortOrderStad,string sortpropertyMaaltijd,string sortOrderMaaltijd)
         {
-            IEnumerable<Pakket> pakkets = await _context.Pakkets.ToListAsync();
+            IEnumerable<Pakket> pakkets =  _context.Pakkets.ToList();
 
             if (SortPropertyKantine.ToLower() == "kantine"){
                 if (sortOrderKantine == "LA")
@@ -45,6 +45,26 @@ namespace FoodWaste.Infrastructure.Repository
                 else if (sortOrderKantine == "LD")
                     pakkets = pakkets.Where(p => p.Kantine == "LD");
                 
+            }
+            if (sortpropertyStad.ToLower() == "stad")
+            {
+                if (sortOrderStad == "breda")
+                    pakkets = pakkets.Where(p => p.Stad == "Breda");
+                else if (sortOrderStad == "denbosch")
+                    pakkets = pakkets.Where(p => p.Stad == "DenBosch");
+                else if (sortOrderStad == "tilburg")
+                    pakkets = pakkets.Where(p => p.Stad == "Tilburg");
+               
+            }
+            if (sortpropertyMaaltijd.ToLower() == "maaltijd")
+            {
+                if (sortOrderMaaltijd == "brood")
+                    pakkets = pakkets.Where(p => p.TypeMaaltijd == "Brood");
+                else if (sortOrderMaaltijd == "warm")
+                    pakkets = pakkets.Where(p => p.TypeMaaltijd == "Warm");
+                else if (sortOrderMaaltijd == "drank")
+                    pakkets = pakkets.Where(p => p.TypeMaaltijd == "Drank");
+
             }
             if (SortProperty.ToLower() == "date")
             {
@@ -71,21 +91,21 @@ namespace FoodWaste.Infrastructure.Repository
             return pakkets;
         }
 
-        public async Task<IEnumerable<Pakket>> GetAllPaketsByProduct(string product)
+        public  IEnumerable<Pakket>GetAllPaketsByProduct(string product)
         {
             //TODO
-            return await _context.Pakkets.Where(c => c.Stad.ToString() == product).ToListAsync();
+            return  _context.Pakkets.Where(c => c.Stad.ToString() == product).ToList();
         }
 
-        public async Task<Pakket> GetByIdAsync(int id)
+        public Pakket GetByIdAsync(int id)
         {
-            return await _context.Pakkets.Include(i => i.ProductCollectie).FirstOrDefaultAsync();
+            return _context.Pakkets.SingleOrDefault(c => c.Id == id);
         }
-        public async Task<Pakket> GetByIdAsyncNoTracking(int id)
+        public  Pakket GetByIdAsyncNoTracking(int id)
         {
             //Product product = _context.Products.Include(a => a.Address).FirstOrDefault(c => c.Id == id); TODO
 
-            return await _context.Pakkets.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+            return _context.Pakkets.AsNoTracking().FirstOrDefault(i => i.Id == id);
         }
         public bool Save()
         {
@@ -99,17 +119,18 @@ namespace FoodWaste.Infrastructure.Repository
             return Save();
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsFromPakket(string productId)
+        public IEnumerable<Product> GetAllProductsFromPakket(string productId)
         {
             List<int> productIds = productId.Split(',').Select(int.Parse).ToList();
            
             
             
-            return await _context.Products.Where(c => productIds.Contains(c.Id)).ToListAsync();
+            return  _context.Products.Where(c => productIds.Contains(c.Id)).ToList();
         }
 
-       
-
-
+        public IEnumerable<Pakket> GetPakketsEqualCurUserID(string curUserID)
+        {
+            return _context.Pakkets.Where(r => r.AppUserId == curUserID);
+        }
     }
 }

@@ -38,17 +38,17 @@
         <span asp-validation-for="Kantine" class="text-danger"></span>
 
     </div>
-    <div class="form-group">
-        <label asp-for="TijdOphalen" class="control-label"></label>
-        <input type="date" asp-for="TijdOphalen" class="form-control" />
-        <span asp-validation-for="TijdOphalen"  class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="TijdOphalen" class="control-label"></label>
+            <input type="datetime-local" asp-for="TijdOphalen" value="@ViewData["TijdOphalen"]" class="form-control" />
+            <span asp-validation-for="TijdOphalen" class="text-danger"></span>
+        </div>
     <div class="form-group">
         <label asp-for="TijdTotOphalen" class="control-label"></label>
-        <input type="date" asp-for="TijdTotOphalen"  class="form-control" />
+        <input type="datetime-local" asp-for="TijdTotOphalen"  class="form-control" />
         <span asp-validation-for="TijdTotOphalen" class="text-danger"></span>
     </div>
-    <div class="form-check">
+        <div class="form-check" style="visibility:hidden">
         <label class="form-check-label" asp-for="Meerderjarig">Meerderjarig?</label>
 
         <input class="form-check-input" asp-for="Meerderjarig">
@@ -69,7 +69,7 @@
         </select>
         <span asp-validation-for="TypeMaaltijd" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group" style="visibility:hidden">
         <label asp-for="AppUserId">AppUserId</label>
         <input asp-for="AppUserId" value="NULL" readonly class="form-control">
         <span asp-validation-for="AppUserId" class="text-danger"></span>

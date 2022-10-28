@@ -23,17 +23,17 @@ namespace FoodWaste.Infrastructure.Repository
             _context = context;
             _httpContextAccessor = httpContextAccessor;
         }
-        public async Task<List<Pakket>> GetAllStudentPakkets()
+        public List<Pakket> GetAllStudentPakkets()
         {
             var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();
             var userPakket = _context.Pakkets.Where(r => r.AppUserId == curUser);
             return userPakket.ToList();
         }
 
-        public async Task<Student> GetStudentByAppuserId()
+        public  Student GetStudentByAppuserId()
         {
             var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();
-            Student student = await _context.Students.AsNoTracking().FirstOrDefaultAsync(r => r.AppUserId == curUser);
+            Student student =  _context.Students.AsNoTracking().FirstOrDefault(r => r.AppUserId == curUser);
             return student;
         }
     }

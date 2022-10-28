@@ -10,7 +10,7 @@ namespace FoodWaste.Application.Interfaces
 {
     public interface IProductRepo
     {
-        Task<IEnumerable<Product>> GetAll();
+        IEnumerable<Product> GetAll();
         Task<Product> GetByIdAsync(int id);
         Task<Product> GetByIdAsyncNoTracking(int id);
 

@@ -10,7 +10,6 @@ namespace FoodWaste.Domain.Enums
     public enum Maaltijd
     {
         Brood,
-        [Description("Warme avondmaaltijd")]
-        warmeAvondmaaltijd, Drank
+        Warm, Drank
     }
 }

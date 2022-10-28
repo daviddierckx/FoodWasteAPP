@@ -1,4 +1,5 @@
-﻿using FoodWaste.Domain;
+﻿using FoodWaste.Application.Interfaces;
+using FoodWaste.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,7 +11,7 @@ using System.Transactions;
 
 namespace FoodWaste.Infrastructure.Data
 {
-    public class ApplicationDbContext:IdentityDbContext<AppUser>
+    public class ApplicationDbContext:IdentityDbContext<AppUser>,IApplicationDbContext
     {
         public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options) : base(options)
         { }

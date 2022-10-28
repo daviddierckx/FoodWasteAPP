@@ -20,18 +20,23 @@ namespace FoodWasteMVC.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IProductRepo _productRepo;
         private readonly IUserRepo _userRepo;
-        public PakketController(IPakketRepo pakketRepo, IProductRepo productRepo ,IUserRepo userRepo, IHttpContextAccessor httpContextAccessor, ApplicationDbContext context)
+        private readonly IMedewerkerRepo _medewerkerRepo;
+
+        public PakketController(IPakketRepo pakketRepo, IProductRepo productRepo ,IUserRepo userRepo, IHttpContextAccessor httpContextAccessor, IMedewerkerRepo medewerkerRepo, ApplicationDbContext context)
         {
             _pakketRepo = pakketRepo;
             _httpContextAccessor = httpContextAccessor;
             _productRepo = productRepo;
             _userRepo = userRepo;
             _context = context;
+            _medewerkerRepo = medewerkerRepo;
         }
-        public async Task<IActionResult> Index(string sortExpression="",string sortKantine="")
+        public async Task<IActionResult> Index(string sortExpression="",string sortKantine="",string sortStad = "",string sortMaaltijd="")
         {
             ViewData["SortParamDate"] = "date";
             ViewData["SortParamKantine"] = "";
+            ViewData["SortParamStad"] = "";
+            ViewData["SortParamMaaltijd"] = "";
 
             ViewData["SortIconDate"] = "";
             ViewData["SortIconDesc"] = "";
@@ -42,12 +47,17 @@ namespace FoodWasteMVC.Controllers
 
             SortOrder sortOrder;
             string sortOrderKantine;
+            string sortOrderStad;
+            string sortOrderMaaltijd;
+
             string sortproperty;
             string sortpropertyKantine;
-
+            string sortpropertyStad;
+            string sortpropertyMaaltijd;
+            
             if (User.IsInRole("student"))
             {
-                var student = await _userRepo.GetStudentByAppuserId();
+                var student =  _userRepo.GetStudentByAppuserId();
                 var bday = student.Geboortedatum;
                 DateTime now = DateTime.Today;
                 int age = now.Year - bday.Year;
@@ -60,6 +70,7 @@ namespace FoodWasteMVC.Controllers
                 ViewData["Student"] = student.Id;
                 ViewData["Reserved"] = false;
             }
+            else { }
             switch (sortExpression.ToLower())
             {
                 case "date_desc":
@@ -84,53 +95,109 @@ namespace FoodWasteMVC.Controllers
             {
                 case "lx":
                     sortOrderKantine = "LX";
-                    sortpropertyKantine = "kantine"; //aanpassen
+                    sortpropertyKantine = "kantine"; 
                     ViewData["SortParamKantine"] = "lx";
 
                     break;
 
                 case "la":
                     sortOrderKantine = "LA";
-                    sortpropertyKantine = "kantine"; //aanpassen
+                    sortpropertyKantine = "kantine"; 
                     ViewData["SortParamKantine"] = "la";
 
                     break;
                 case "hl":
                     sortOrderKantine = "HL";
-                    sortpropertyKantine = "kantine"; //aanpassen
+                    sortpropertyKantine = "kantine";
                     ViewData["SortParamKantine"] = "hl";
 
                     break;
                 case "ld":
                     sortOrderKantine = "LD";
-                    sortpropertyKantine = "kantine"; //aanpassen
+                    sortpropertyKantine = "kantine";
                     ViewData["SortParamKantine"] = "ld";
 
                     break;
                 default :
                     sortOrderKantine = "";
-                    sortpropertyKantine = "kantine"; //aanpassen
+                    sortpropertyKantine = "kantine"; 
                     ViewData["SortParamKantine"] = "";
 
                     break;
 
             }
+            switch (sortStad.ToLower())
+            {
+                case "breda":
+                    sortOrderStad = "breda";
+                    sortpropertyStad = "stad";
+                    ViewData["SortParamStad"] = "breda";
 
-            IEnumerable<Pakket> pakkets = await _pakketRepo.GetAll(sortproperty,sortpropertyKantine,sortOrder,sortOrderKantine);
-            return View(pakkets.Where(r => r.AppUserId == null));
+                    break;
+
+                case "denbosch":
+                    sortOrderStad = "denbosch";
+                    sortpropertyStad = "stad";
+                    ViewData["SortParamStad"] = "denbosch";
+
+                    break;
+                case "mijnstad":
+                    sortOrderStad = _userRepo.GetStudentByAppuserId().StudieStad.ToLower();
+                    sortpropertyStad = "stad";
+                    ViewData["SortParamStad"] = _userRepo.GetStudentByAppuserId().StudieStad.ToLower();
+                    
+                    break;
+                default:
+                    sortOrderStad = "";
+                    sortpropertyStad = "stad";
+                    ViewData["SortParamStad"] = "";
+                    break;
+
+            }
+            switch (sortMaaltijd.ToLower())
+            {
+                case "brood":
+                    sortOrderMaaltijd = "brood";
+                    sortpropertyMaaltijd = "maaltijd";
+                    ViewData["SortParamMaaltijd"] = "brood";
+
+                    break;
+
+                case "warm":
+                    sortOrderMaaltijd = "warm";
+                    sortpropertyMaaltijd = "maaltijd";
+                    ViewData["SortParamMaaltijd"] = "warm";
+
+                    break;
+                case "drank":
+                    sortOrderMaaltijd = "drank";
+                    sortpropertyMaaltijd = "maaltijd";
+                    ViewData["SortParamMaaltijd"] = "drank";
+
+                    break;
+                default:
+                    sortOrderMaaltijd = "";
+                    sortpropertyMaaltijd = "maaltijd";
+                    ViewData["SortParamMaaltijd"] = "";
+                    break;
+
+            }
+
+            IEnumerable<Pakket> pakkets =  _pakketRepo.GetAll(sortproperty,sortpropertyKantine,sortOrder,sortOrderKantine,sortpropertyStad,sortOrderStad,sortpropertyMaaltijd,sortOrderMaaltijd);
+            return View(pakkets);
         }
 
         public async Task<IActionResult> Detail(int id)
         {
             var curUserID = _httpContextAccessor.HttpContext?.User.GetUserId();
-            var pakket = await _pakketRepo.GetByIdAsyncNoTracking(id);
+            var pakket =  _pakketRepo.GetByIdAsyncNoTracking(id);
             if (pakket == null) return View("Error");
 
             var createPakketViewModel = new CreatePakketViewModel
             {
                 BeschrijvendeNaam = pakket.BeschrijvendeNaam,
                 SelectedProductId = pakket.SelectedProductId,
-                ProductCollectie = await _pakketRepo.GetAllProductsFromPakket(pakket.SelectedProductId),
+                ProductCollectie =  _pakketRepo.GetAllProductsFromPakket(pakket.SelectedProductId),
                 Stad = (Stad)Enum.Parse(typeof(Stad), pakket.Stad),
                 Kantine = (Locatie)Enum.Parse(typeof(Locatie), pakket.Kantine),
                 TijdOphalen = pakket.TijdOphalen,
@@ -143,10 +210,11 @@ namespace FoodWasteMVC.Controllers
             return View(createPakketViewModel);
         }
         [Authorize(Roles = "kantineMedewerker")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var curUserID = _httpContextAccessor.HttpContext?.User.GetUserId();
-            var createPakketViewModel = new CreatePakketViewModel {ProductCollectie = _context.Products.ToList(), AppUserId = curUserID };
+            var curKantineMedewerker = await _medewerkerRepo.GetKantineMedewerkerByAppuserId();
+            var createPakketViewModel = new CreatePakketViewModel {ProductCollectie = _context.Products.ToList(), AppUserId = curUserID, Kantine = (Locatie)Enum.Parse(typeof(Locatie), curKantineMedewerker.Locatie) };
             return View(createPakketViewModel);
         }
         [HttpPost]
@@ -156,12 +224,16 @@ namespace FoodWasteMVC.Controllers
         {
             ViewData["Alcohol"] = "";
             bool containAlcohol = false;
-            pakketVM.ProductCollectie = _context.Products.ToList();
+
+
+            pakketVM.ProductCollectie =  _productRepo.GetAll();
+
+
             if (pakketVM.SelectIDArray == null)
             {
                 pakketVM.ProductCollectie = new Product[] { };
                 TempData["Error"] = "No products selected";
-                pakketVM.ProductCollectie = _context.Products.ToList();
+                pakketVM.ProductCollectie =  _productRepo.GetAll();
                 return View(pakketVM);
             }
             if (pakketVM.ProductCollectie == null)
@@ -171,11 +243,13 @@ namespace FoodWasteMVC.Controllers
             var producten = string.Join(",", pakketVM.SelectIDArray);
             for (int i = 0; i < pakketVM.SelectIDArray.Length; i++)
             {
-                foreach (var item in await _pakketRepo.GetAllProductsFromPakket(pakketVM.SelectIDArray[i]))
+                foreach (var item in  _pakketRepo.GetAllProductsFromPakket(pakketVM.SelectIDArray[i]))
                 {
                     if(item.Alcohol == true)
                     {
                         containAlcohol = true;
+                        ViewData["Alcohol"] = "Alcohol";
+
                     }
                 } 
             }
@@ -212,7 +286,7 @@ namespace FoodWasteMVC.Controllers
         public async Task<IActionResult> Reserve(int id)
         {
            var curUserID = _httpContextAccessor.HttpContext?.User.GetUserId();
-            var pakket = await _pakketRepo.GetByIdAsyncNoTracking(id);
+            var pakket =  _pakketRepo.GetByIdAsyncNoTracking(id);
             if (pakket == null) return View("Error");
 
             var createPakketViewModel = new CreatePakketViewModel {
@@ -235,9 +309,9 @@ namespace FoodWasteMVC.Controllers
         public async Task<IActionResult> Reserve(int id, CreatePakketViewModel pakketvm)
         {
 
-            var userPakket = await _pakketRepo.GetByIdAsyncNoTracking(id);
+            var userPakket =  _pakketRepo.GetByIdAsyncNoTracking(id);
             var curUserID = _httpContextAccessor.HttpContext?.User.GetUserId();
-            var student = await _userRepo.GetStudentByAppuserId();
+            var student =  _userRepo.GetStudentByAppuserId();
            
             List<int> studentIds = new List<int>();
             if (userPakket.StudentenIds != null)
@@ -257,19 +331,7 @@ namespace FoodWasteMVC.Controllers
 
             if (_pakketRepo != null)
             {
-                var pakket = new Pakket
-                {
-                    BeschrijvendeNaam = pakketvm.BeschrijvendeNaam,
-                    SelectedProductId = pakketvm.SelectedProductId,
-                    Stad = pakketvm.Stad.ToString(),
-                    Kantine = pakketvm.Kantine.ToString(),
-                    TijdOphalen = pakketvm.TijdOphalen,
-                    TijdTotOphalen = pakketvm.TijdTotOphalen,
-                    Meerderjarig = pakketvm.Meerderjarig,
-                    Prijs = pakketvm.Prijs,
-                    TypeMaaltijd = pakketvm.TypeMaaltijd.ToString(),
-                    AppUserId = curUserID,
-                };
+              
                 var pakketUpdate = new Pakket
                 {
                     Id = id,
@@ -282,7 +344,9 @@ namespace FoodWasteMVC.Controllers
                     Meerderjarig = pakketvm.Meerderjarig,
                     Prijs = pakketvm.Prijs,
                     TypeMaaltijd = pakketvm.TypeMaaltijd.ToString(),
-                    StudentenIds = studentenlijst
+                    StudentenIds = studentenlijst,
+                    AppUserId = curUserID,
+
                 };
 
 
@@ -295,8 +359,8 @@ namespace FoodWasteMVC.Controllers
                     return RedirectToAction("Index");
                 }
 
-                IEnumerable<Pakket> PakketUser = _context.Pakkets.Where(r => r.AppUserId == curUserID);
-                IEnumerable<Pakket> lijstTijdOphalen = PakketUser.Where(r => r.TijdOphalen == pakket.TijdOphalen);
+                IEnumerable<Pakket> PakketUser = _pakketRepo.GetPakketsEqualCurUserID(curUserID);
+                IEnumerable<Pakket> lijstTijdOphalen = PakketUser.Where(r => r.TijdOphalen == pakketUpdate.TijdOphalen);
                 if(lijstTijdOphalen.Count() > 0)
                 {
                     TempData["Error"] = "Je mag maximaal 1 pakket per afhaaldag reserveren";
@@ -304,7 +368,6 @@ namespace FoodWasteMVC.Controllers
                 }
 
                
-                _pakketRepo.Add(pakket);
                 _pakketRepo.Update(pakketUpdate);
                 return RedirectToAction("Index");
 
@@ -320,41 +383,60 @@ namespace FoodWasteMVC.Controllers
            
 
 
-            var pakket = await _pakketRepo.GetByIdAsyncNoTracking(id);
-
-            ViewData["TijdOphalen"] = pakket.TijdOphalen;
-            ViewData["TijdTotOphalen"] = pakket.TijdTotOphalen;
-
-            if (pakket == null) return View("Error");
-            var pakketVM = new EditPakketViewModel
+            var pakket =  _pakketRepo.GetByIdAsyncNoTracking(id);
+            if (pakket.StudentenIds == null)
             {
-                BeschrijvendeNaam = pakket.BeschrijvendeNaam,
-                SelectedProductId = pakket.SelectedProductId,
-                ProductCollectie  = _context.Products.ToList(),
-            Stad = (Stad)Enum.Parse(typeof(Stad), pakket.Stad),
-                Kantine = (Locatie)Enum.Parse(typeof(Locatie), pakket.Kantine),
-                TijdOphalen =  pakket.TijdOphalen,
-                TijdTotOphalen = pakket.TijdTotOphalen,
-                Meerderjarig = pakket.Meerderjarig,
-                Prijs = pakket.Prijs,
-                TypeMaaltijd = (Maaltijd)Enum.Parse(typeof(Maaltijd), pakket.TypeMaaltijd),
-            };
-            return View(pakketVM);
+                ViewData["TijdOphalen"] = pakket.TijdOphalen.ToString("yyyy-MM-ddTHH:mm");
+                ViewData["TijdTotOphalen"] = pakket.TijdTotOphalen;
+
+                if (pakket == null) return View("Error");
+                var pakketVM = new EditPakketViewModel
+                {
+                    BeschrijvendeNaam = pakket.BeschrijvendeNaam,
+                    SelectedProductId = pakket.SelectedProductId,
+                    ProductCollectie = _context.Products.ToList(),
+                    Stad = (Stad)Enum.Parse(typeof(Stad), pakket.Stad),
+                    Kantine = (Locatie)Enum.Parse(typeof(Locatie), pakket.Kantine),
+                    TijdOphalen = pakket.TijdOphalen,
+                    TijdTotOphalen = pakket.TijdTotOphalen,
+                    Meerderjarig = pakket.Meerderjarig,
+                    Prijs = pakket.Prijs,
+                    TypeMaaltijd = (Maaltijd)Enum.Parse(typeof(Maaltijd), pakket.TypeMaaltijd),
+                };
+                return View(pakketVM);
+            }
+            else {
+                TempData["Error"] = "Wijzigen van een pakket, mag alleen als er nog geen reserveringen voor zijn";
+                return RedirectToAction("Index");
+
+
+            }
         }
 
         //TODO Edit Post
+
+
+
         [Authorize(Roles = "kantineMedewerker")]
         public async Task<IActionResult> Delete(int id)
         {
-            var pakketDetails = await _pakketRepo.GetByIdAsyncNoTracking(id);
+            var pakketDetails =  _pakketRepo.GetByIdAsyncNoTracking(id);
             if (pakketDetails == null) return View("Error");
-            return View(pakketDetails);
+            if (pakketDetails.StudentenIds == null)
+            {
+                return View(pakketDetails);
+            }
+            else
+            {
+                TempData["Error"] = "Verwijderen van een pakket, mag alleen als er nog geen reserveringen voor zijn";
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost,ActionName("Delete")]
         public async Task<IActionResult> DeletePakket(int id)
         {
-            var pakketDetails = await _pakketRepo.GetByIdAsyncNoTracking(id);
+            var pakketDetails =  _pakketRepo.GetByIdAsyncNoTracking(id);
             if (pakketDetails == null) return View("Error");
 
             _pakketRepo.Delete(pakketDetails);

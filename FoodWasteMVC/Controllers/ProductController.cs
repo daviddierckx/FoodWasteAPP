@@ -23,15 +23,13 @@ namespace FoodWasteMVC.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Product> products = await _productRepo.GetAll();
+            IEnumerable<Product> products =  _productRepo.GetAll();
             return View(products);
         }
 
         public async Task<IActionResult> Detail(int id)
         {
-            //Lazy loading is a way to conserve data (Include => like a join in sql)
-            //Product product = _context.Products.Include(a => a.Address).FirstOrDefault(c => c.Id == id);
-
+            ViewData["Products"] = _productRepo.GetAll(); 
             Product product = await _productRepo.GetByIdAsync(id);
             return View(product);
         }

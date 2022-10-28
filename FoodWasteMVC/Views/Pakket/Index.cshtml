@@ -15,6 +15,7 @@
             </p>
             }
         </div>
+
     </section>
     @if (TempData["Error"] != null)
     {
@@ -25,15 +26,100 @@
         </div>
     }
     <div class="album py-5 bg-light">
+
         <div class="container">
             <i class="@ViewData["SortIconDate"]" arial-hidden="true"></i>
             <a asp-action="Index" asp-route-sortExpression="@ViewData["SortParamDate"]" asp-route-sortKantine="@ViewData["SortParamKantine"]">Datum</a>
-            <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortKantine="LA">LA</a>
-            <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortKantine="LX">LX</a>
-            <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortKantine="HL">HL</a>
-            <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortKantine="LD">LD</a>
 
-            <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortKantine="">ALL</a>
+            <div class="dropdownMe">
+                <div class="select">
+                    <span class="selected">Locatie</span>
+                    <div class="caret"></div>
+                </div>
+                <ul class="menu">
+                    <li>
+                        <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortStad="@ViewData["SortParamStad"]" asp-route-sortMaaltijd="@ViewData["SortParamMaaltijd"]" asp-route-sortKantine="">ALL</a>
+
+                    </li>
+                    <li>
+                        <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortStad="@ViewData["SortParamStad"]" asp-route-sortMaaltijd="@ViewData["SortParamMaaltijd"]" asp-route-sortKantine="LA">LA</a>
+                    </li>
+                    <li>
+                        <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortStad="@ViewData["SortParamStad"]" asp-route-sortMaaltijd="@ViewData["SortParamMaaltijd"]" asp-route-sortKantine="LX">LX</a>
+                    </li>
+                    <li>
+                        <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortStad="@ViewData["SortParamStad"]" asp-route-sortMaaltijd="@ViewData["SortParamMaaltijd"]" asp-route-sortKantine="HL">HL</a>
+                        </li>
+                    <li>        
+                        <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortStad="@ViewData["SortParamStad"]" asp-route-sortMaaltijd="@ViewData["SortParamMaaltijd"]" asp-route-sortKantine="LD">LD</a>
+                       </li>
+                  
+                </ul>
+            </div>
+            <div class="dropdownMe">
+                <div class="select">
+                    <span class="selected">Stad</span>
+                    <div class="caret"></div>
+                </div>
+                <ul class="menu">
+                    <li>
+                        <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortKantine="@ViewData["SortParamKantine"]" asp-route-sortMaaltijd="@ViewData["SortParamMaaltijd"]" asp-route-sortStad="">ALL</a>
+
+                    </li>
+                    <li>
+                        <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortKantine="@ViewData["SortParamKantine"]" asp-route-sortMaaltijd="@ViewData["SortParamMaaltijd"]" asp-route-sortStad="breda">Breda</a>
+                    </li>
+                    <li>
+                        <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortKantine="@ViewData["SortParamKantine"]" asp-route-sortMaaltijd="@ViewData["SortParamMaaltijd"]" asp-route-sortStad="denbosch">Den Bosch</a>
+                    </li>
+                    <li>
+                        <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortKantine="@ViewData["SortParamKantine"]" asp-route-sortMaaltijd="@ViewData["SortParamMaaltijd"]" asp-route-sortStad="tilburg">Tilburg</a>
+                    </li>
+                       @if(User.IsInRole("student")){
+                      <li style = "border-top: 1px solid white; border-radius: 0px">
+                        <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortKantine="@ViewData["SortParamKantine"]" asp-route-sortMaaltijd="@ViewData["SortParamMaaltijd"]" asp-route-sortStad="mijnstad">Mijn Stad</a>
+                    </li>
+                       }
+
+                </ul>
+            </div>
+              <div class="dropdownMe">
+                <div class="select">
+                    <span class="selected">Type Maaltijd</span>
+                    <div class="caret"></div>
+                </div>
+                <ul class="menu">
+                    <li>
+                        <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortKantine="@ViewData["SortParamKantine"]" asp-route-sortStad="@ViewData["SortParamStad"]" asp-route-sortMaaltijd="">ALL</a>
+
+                    </li>
+                    <li>
+                        <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortKantine="@ViewData["SortParamKantine"]" asp-route-sortStad="@ViewData["SortParamStad"]" asp-route-sortMaaltijd="warm">Warm</a>
+                    </li>
+                    <li>
+                        <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortKantine="@ViewData["SortParamKantine"]" asp-route-sortStad="@ViewData["SortParamStad"]" asp-route-sortMaaltijd="drank">Drank</a>
+                    </li>
+                    <li>
+                        <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortKantine="@ViewData["SortParamKantine"]" asp-route-sortStad="@ViewData["SortParamStad"]" asp-route-sortMaaltijd="brood">Brood</a>
+                    </li>
+                   
+
+                </ul>
+            </div>
+          
+
+        @*    <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdownmenu" role="button" data-toggle="dropdown">
+         Dropdown button
+        </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownmenu">
+                    <a asp-action="Index" asp-route-sortExpression="date" asp-route-sortKantine="LA">LA</a>
+
+         </div>
+            </div>*@
+
+
+
 
             <div class="row">
                 @if(User.IsInRole("student")){
@@ -62,12 +148,25 @@
                                 <img class="card-img-top" src="https://t3.ftcdn.net/jpg/01/32/19/04/360_F_132190437_G52JKWshlBzSP4c9TDfDDVQTTRPspWCw.jpg" width="100%" height="225" alt="Card image cap">
                                 <div class="card-body" >
                                     <p class="card-text">@item.BeschrijvendeNaam</p>
+                                     <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">Stad: @item.Stad</li>
+                                            <li class="list-group-item">Ophalen: @item.TijdOphalen.ToString("dd/MM HH:mm") - @item.TijdTotOphalen.ToString("HH:mm")</li>
+                                            <li class="list-group-item">Type Maaltijd: @item.TypeMaaltijd</li>
+                                            <li class="list-group-item">Prijs: €@item.Prijs</li>
+
+                                            <li class="list-group-item"></li>
+
+                                        </ul>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             <a type="btn btn-succes" asp-controller="Pakket" asp-action="Detail" asp-route-id="@item.Id"
                                        class="btn btn-sm btn-light">View</a>
                                         </div>
-
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">Cras justo odio</li>
+                                                <li class="list-group-item">Dapibus ac facilisis in</li>
+                                                <li class="list-group-item">Vestibulum at eros</li>
+                                            </ul>
                                         <small class="text-muted" style="color: white !important; ">@item.Kantine</small>
 
 
@@ -85,6 +184,15 @@
                             <img class="card-img-top" src="https://cdn.dribbble.com/users/59947/screenshots/16870381/media/b02407056dbebb961ee73f2e5ec3eddf.jpg?compress=1&resize=400x300" width="100%" height="225" alt="Card image cap">
                             <div class="card-body">
                                 <p class="card-text">@item.BeschrijvendeNaam</p>
+                                <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">Stad: @item.Stad</li>
+                                            <li class="list-group-item">Ophalen: @item.TijdOphalen.ToString("dd/MM HH:mm") - @item.TijdTotOphalen.ToString("HH:mm")</li>
+                                            <li class="list-group-item">Type Maaltijd: @item.TypeMaaltijd</li>
+                                            <li class="list-group-item">Prijs: €@item.Prijs</li>
+
+                                            <li class="list-group-item"></li>
+
+                                        </ul>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <a type="btn btn-succes" asp-controller="Pakket" asp-action="Detail" asp-route-id="@item.Id"
@@ -111,7 +219,7 @@
 
 
                                     </div>
-
+                                           
                                             <small class="text-muted" style="color: forestgreen;">@item.Kantine</small>
 
 
@@ -135,6 +243,15 @@
                                 <img class="card-img-top" src="https://cdn.dribbble.com/users/59947/screenshots/16870381/media/b02407056dbebb961ee73f2e5ec3eddf.jpg?compress=1&resize=400x300" width="100%" height="225" alt="Card image cap">
                                 <div class="card-body">
                                     <p class="card-text">@item.BeschrijvendeNaam</p>
+                                    <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">Stad: @item.Stad</li>
+                                            <li class="list-group-item">Ophalen: @item.TijdOphalen.ToString("dd/MM HH:mm") - @item.TijdTotOphalen.ToString("HH:mm")</li>
+                                            <li class="list-group-item">Type Maaltijd: @item.TypeMaaltijd</li>
+                                            <li class="list-group-item">Prijs: €@item.Prijs</li>
+
+                                            <li class="list-group-item"></li>
+
+                                        </ul>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             <a type="btn btn-succes" asp-controller="Pakket" asp-action="Detail" asp-route-id="@item.Id"
@@ -146,7 +263,7 @@
                                                 <a class="btn btn-sm btn-outline-secondary" asp-controller="Pakket" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                                             }
                                        </div>
-
+                                        
                                         <small class="text-muted"  >@item.Kantine</small>
 
 
@@ -167,7 +284,45 @@
     </div>
 
 </main>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
 <script>
+    const dropdowns = document.querySelectorAll('.dropdownMe')
+    dropdowns.forEach(dropdown =>{
+        const select = dropdown.querySelector('.select');
+        const caret = dropdown.querySelector('.caret');
+        const menu = dropdown.querySelector('.menu');
+        const options = dropdown.querySelectorAll('.options');
+        const selected = dropdown.querySelector('.selected');
+
+        select.addEventListener('click',()=>{
+            select.classList.toggle('select-clicked');
+            caret.classList.toggle('caret-rotate');
+            menu.classList.toggle('menu-open');
+
+        });
+
+       options.forEach(option => {
+           option.addEventListener('click',()=>{
+
+               selected.innerHTML = option.innerHTML;
+               select.classList.remove('select-clicked');
+                caret.classList.remove('caret-rotate');
+                menu.classList.remove('menu-open');
+
+                options.forEach(option =>{
+                    option.classList.remove('active')
+                });
+                option.classList.add('active');
+
+           })
+       })
+    })
+
+    
     const targetDiv = document.getElementById("third");
     const btn = document.getElementById("toggle");
     btn.onclick = function () {

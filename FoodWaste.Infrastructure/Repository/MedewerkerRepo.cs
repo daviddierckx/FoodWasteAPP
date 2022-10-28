@@ -1,6 +1,8 @@
-﻿using FoodWaste.Application.Interfaces;
+﻿using FoodWaste.Application;
+using FoodWaste.Application.Interfaces;
 using FoodWaste.Domain;
 using FoodWaste.Infrastructure.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,9 +15,12 @@ namespace FoodWaste.Infrastructure.Repository
     public class MedewerkerRepo : IMedewerkerRepo
     {
         private readonly ApplicationDbContext _context;
-        public MedewerkerRepo(ApplicationDbContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public MedewerkerRepo(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public bool Add(KantineMedewerker kantineMedewerker)
@@ -55,6 +60,13 @@ namespace FoodWaste.Infrastructure.Repository
         {
             _context.Update(kantineMedewerker);
             return Save();
+        }
+
+        public async Task<KantineMedewerker> GetKantineMedewerkerByAppuserId()
+        {
+            var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();
+            KantineMedewerker kantineMedewerker = await _context.KantineMedewerkers.AsNoTracking().FirstOrDefaultAsync(r => r.AppUserId == curUser);
+            return kantineMedewerker;
         }
     }
 }

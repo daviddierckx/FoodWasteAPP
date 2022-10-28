@@ -10,12 +10,12 @@ namespace FoodWaste.Application.Interfaces
 {
     public interface IPakketRepo
     {
-        Task<IEnumerable<Pakket>> GetAll(string SortProperty, string SortPropertyKantine, SortOrder sortOrder, string sortOrderKantine);
-        Task<Pakket> GetByIdAsync(int id);
-        Task<Pakket> GetByIdAsyncNoTracking(int id);
-        Task<IEnumerable<Pakket>> GetAllPaketsByProduct(string product);
-        Task<IEnumerable<Product>> GetAllProductsFromPakket(string productId);
-
+        IEnumerable<Pakket> GetAll(string SortProperty, string SortPropertyKantine, SortOrder sortOrder, string sortOrderKantine,string sortpropertyStad,string sortOrderStad, string sortpropertyMaaltijd, string sortOrderMaaltijd);
+        Pakket GetByIdAsync(int id);
+        Pakket GetByIdAsyncNoTracking(int id);
+        IEnumerable<Pakket> GetAllPaketsByProduct(string product);
+        IEnumerable<Product> GetAllProductsFromPakket(string productId);
+        IEnumerable<Pakket> GetPakketsEqualCurUserID(string curUserID);
         bool Add(Pakket pakket);
         bool Update(Pakket pakket);
         bool Delete(Pakket pakket);
