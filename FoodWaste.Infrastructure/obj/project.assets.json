@@ -10799,11 +10799,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dierc\\FoodWaste\\FoodWaste.Infrastructure\\FoodWaste.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\dierc\\OneDrive\\Bureaublad\\hetRondje\\Food-Waste\\FoodWaste.Infrastructure\\FoodWaste.Infrastructure.csproj",
       "projectName": "FoodWaste.Infrastructure",
-      "projectPath": "C:\\Users\\dierc\\FoodWaste\\FoodWaste.Infrastructure\\FoodWaste.Infrastructure.csproj",
+      "projectPath": "C:\\Users\\dierc\\OneDrive\\Bureaublad\\hetRondje\\Food-Waste\\FoodWaste.Infrastructure\\FoodWaste.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\dierc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dierc\\FoodWaste\\FoodWaste.Infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\dierc\\OneDrive\\Bureaublad\\hetRondje\\Food-Waste\\FoodWaste.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dierc\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -10820,8 +10820,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\dierc\\FoodWaste\\FoodWaste.Application\\FoodWaste.Application.csproj": {
-              "projectPath": "C:\\Users\\dierc\\FoodWaste\\FoodWaste.Application\\FoodWaste.Application.csproj"
+            "C:\\Users\\dierc\\OneDrive\\Bureaublad\\hetRondje\\Food-Waste\\FoodWaste.Application\\FoodWaste.Application.csproj": {
+              "projectPath": "C:\\Users\\dierc\\OneDrive\\Bureaublad\\hetRondje\\Food-Waste\\FoodWaste.Application\\FoodWaste.Application.csproj"
             }
           }
         }

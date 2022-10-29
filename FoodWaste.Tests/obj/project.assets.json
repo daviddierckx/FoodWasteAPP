@@ -12877,11 +12877,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dierc\\FoodWaste\\FoodWaste.Tests\\FoodWaste.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\dierc\\OneDrive\\Bureaublad\\hetRondje\\Food-Waste\\FoodWaste.Tests\\FoodWaste.Tests.csproj",
       "projectName": "FoodWaste.Tests",
-      "projectPath": "C:\\Users\\dierc\\FoodWaste\\FoodWaste.Tests\\FoodWaste.Tests.csproj",
+      "projectPath": "C:\\Users\\dierc\\OneDrive\\Bureaublad\\hetRondje\\Food-Waste\\FoodWaste.Tests\\FoodWaste.Tests.csproj",
       "packagesPath": "C:\\Users\\dierc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dierc\\FoodWaste\\FoodWaste.Tests\\obj\\",
+      "outputPath": "C:\\Users\\dierc\\OneDrive\\Bureaublad\\hetRondje\\Food-Waste\\FoodWaste.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dierc\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -12898,11 +12898,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\dierc\\FoodWaste\\FoodWaste.Application\\FoodWaste.Application.csproj": {
-              "projectPath": "C:\\Users\\dierc\\FoodWaste\\FoodWaste.Application\\FoodWaste.Application.csproj"
+            "C:\\Users\\dierc\\OneDrive\\Bureaublad\\hetRondje\\Food-Waste\\FoodWaste.Application\\FoodWaste.Application.csproj": {
+              "projectPath": "C:\\Users\\dierc\\OneDrive\\Bureaublad\\hetRondje\\Food-Waste\\FoodWaste.Application\\FoodWaste.Application.csproj"
             },
-            "C:\\Users\\dierc\\FoodWaste\\FoodWasteMVC\\FoodWasteMVC.csproj": {
-              "projectPath": "C:\\Users\\dierc\\FoodWaste\\FoodWasteMVC\\FoodWasteMVC.csproj"
+            "C:\\Users\\dierc\\OneDrive\\Bureaublad\\hetRondje\\Food-Waste\\FoodWasteMVC\\FoodWasteMVC.csproj": {
+              "projectPath": "C:\\Users\\dierc\\OneDrive\\Bureaublad\\hetRondje\\Food-Waste\\FoodWasteMVC\\FoodWasteMVC.csproj"
             }
           }
         }

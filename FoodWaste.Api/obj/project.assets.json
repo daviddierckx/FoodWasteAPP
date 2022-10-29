@@ -10012,11 +10012,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dierc\\FoodWaste\\FoodWaste.Api\\FoodWaste.Api.csproj",
+      "projectUniqueName": "C:\\Users\\dierc\\OneDrive\\Bureaublad\\hetRondje\\Food-Waste\\FoodWaste.Api\\FoodWaste.Api.csproj",
       "projectName": "FoodWaste.Api",
-      "projectPath": "C:\\Users\\dierc\\FoodWaste\\FoodWaste.Api\\FoodWaste.Api.csproj",
+      "projectPath": "C:\\Users\\dierc\\OneDrive\\Bureaublad\\hetRondje\\Food-Waste\\FoodWaste.Api\\FoodWaste.Api.csproj",
       "packagesPath": "C:\\Users\\dierc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dierc\\FoodWaste\\FoodWaste.Api\\obj\\",
+      "outputPath": "C:\\Users\\dierc\\OneDrive\\Bureaublad\\hetRondje\\Food-Waste\\FoodWaste.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dierc\\AppData\\Roaming\\NuGet\\NuGet.Config",
