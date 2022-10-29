@@ -27,8 +27,8 @@
     <div class="form-group">
         <label>Selecteer producten</label>
         @*        @Html.DropDownListFor(model => model.SelectedProductId, new SelectList(Model.ProductCollectie,"Id","BeschrijvendeNaam"), new {id = "normalDropDown"})
-        *@        @Html.ListBoxFor(model => model.SelectIDArray, new MultiSelectList(Model.ProductCollectie.ToList(),"Id","BeschrijvendeNaam"), new {id = "multiSelectDropDown", multiple="multiple",required="required"})
-
+        *@        @Html.ListBoxFor(model => model.SelectIDArray, new MultiSelectList(Model.ProductCollectie.ToList(),"Id","BeschrijvendeNaam"), new {id = "multiSelectDropDown", multiple="multiple",required="required"});
+                   
     </div>
     <div class="form-group">
         <label asp-for="Kantine">Kantine</label>

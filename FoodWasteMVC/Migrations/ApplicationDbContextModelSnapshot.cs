@@ -136,8 +136,9 @@ namespace FoodWasteMVC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Locatie")
-                        .HasColumnType("int");
+                    b.Property<string>("Locatie")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Naam")
                         .IsRequired()

@@ -414,7 +414,52 @@ namespace FoodWasteMVC.Controllers
         }
 
         //TODO Edit Post
+        [HttpPost]
+        [Authorize(Roles = "kantineMedewerker")]
+        public async Task<IActionResult> Edit(int id, EditPakketViewModel pakketvm)
+        {
+            pakketvm.ProductCollectie = _productRepo.GetAll();
 
+
+            if (pakketvm.SelectIDArray == null)
+            {
+                pakketvm.ProductCollectie = new Product[] { };
+                TempData["Error"] = "No products selected";
+                pakketvm.ProductCollectie = _productRepo.GetAll();
+                return View(pakketvm);
+            }
+            if (pakketvm.ProductCollectie == null)
+            {
+                TempData["Error"] = "No products selected";
+            }
+            var producten = string.Join(",", pakketvm.SelectIDArray);
+
+            var userPakket =  _pakketRepo.GetByIdAsyncNoTracking(id);
+            if (userPakket != null)
+            {
+                var pakket = new Pakket
+                {
+                    Id = id,
+                    BeschrijvendeNaam = pakketvm.BeschrijvendeNaam,
+                    SelectedProductId = producten,
+                    Stad = pakketvm.Stad.ToString(),
+                    Kantine = pakketvm.Kantine.ToString(),
+                    TijdOphalen = pakketvm.TijdOphalen,
+                    TijdTotOphalen = pakketvm.TijdTotOphalen,
+                    Meerderjarig = pakketvm.Meerderjarig,
+                    Prijs = pakketvm.Prijs,
+                    TypeMaaltijd = pakketvm.TypeMaaltijd.ToString(),
+                    
+                };
+                _pakketRepo.Update(pakket);
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                return View(pakketvm);
+            }
+        }
 
 
         [Authorize(Roles = "kantineMedewerker")]

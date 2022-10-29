@@ -49,7 +49,7 @@ namespace FoodWaste.Application.Data
                     await userManager.AddToRoleAsync(newAdminUser, UserRoles.KantineMedewerker);
                 }
 
-                string appUserEmail = "user@etickets.com";
+                string appUserEmail = "user@gmail.com";
 
                 var appUser = await userManager.FindByEmailAsync(appUserEmail);
                 if (appUser == null)

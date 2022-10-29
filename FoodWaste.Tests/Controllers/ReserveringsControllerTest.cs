@@ -56,6 +56,8 @@ namespace FoodWaste.Tests.Controllers
             var result = _reserveringenController.Index();
 
             //Assert - Object check actions
+            result.Should().NotBeNull();
+
         }
     }
 }

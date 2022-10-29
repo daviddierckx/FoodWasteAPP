@@ -12,7 +12,7 @@ namespace FoodWaste.Application.Interfaces
     {
         IEnumerable<Product> GetAll();
         Task<Product> GetByIdAsync(int id);
-        Task<Product> GetByIdAsyncNoTracking(int id);
+        Product GetByIdAsyncNoTracking(int id);
 
         Task<IEnumerable<Product>> GetProductByName(string name);
         bool Add(Product product);

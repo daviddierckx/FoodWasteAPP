@@ -86,7 +86,7 @@ namespace FoodWasteMVC.Controllers
                 ModelState.AddModelError("", "Failed to edit product");
                     return View("Edit", productVM);
             }
-            var userProduct = await _productRepo.GetByIdAsyncNoTracking(id);
+            var userProduct =  _productRepo.GetByIdAsyncNoTracking(id);
             if(userProduct != null)
             {
                 var product = new Product
@@ -105,5 +105,24 @@ namespace FoodWasteMVC.Controllers
                 return View(productVM);
             }
         }
+
+        [Authorize(Roles = "kantineMedewerker")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var productDetails = _productRepo.GetByIdAsyncNoTracking(id);
+            if (productDetails == null) return View("Error");
+            return View(productDetails);
+        }
+
+        [HttpPost,ActionName("Delete")]
+        public async Task<IActionResult> DeletePakket(int id)
+        {
+            var productDetails =  _productRepo.GetByIdAsyncNoTracking(id);
+            if (productDetails == null) return View("Error");
+
+            _productRepo.Delete(productDetails);
+            return RedirectToAction("Index");
+        }
     }
-}
+ }
+

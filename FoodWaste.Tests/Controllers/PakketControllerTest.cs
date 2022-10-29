@@ -56,7 +56,7 @@ namespace FoodWaste.Tests.Controllers
             // create TempData, otherwise crash
             _sut.TempData = new TempDataDictionary(_sut.ControllerContext.HttpContext, Mock.Of<ITempDataProvider>());
 
-            _pakketRepo.Setup(pakketRepo => pakketRepo.GetAll("date", "kantine", SortOrder.Ascending, "")).Returns(
+            _pakketRepo.Setup(pakketRepo => pakketRepo.GetAll("date", "kantine", SortOrder.Ascending,"","stad","","maaltijd","")).Returns(
             new List<Pakket>
             {
                 new()
@@ -179,7 +179,7 @@ namespace FoodWaste.Tests.Controllers
                       Prijs = 10,
                       TypeMaaltijd = "Brood"
                 } };
-            _pakketRepo.Setup(pakketRepo => pakketRepo.GetAll("date","kantine", sortOrderDate, sortOrderKantine)).Returns(pakketList);
+            _pakketRepo.Setup(pakketRepo => pakketRepo.GetAll("date","kantine", sortOrderDate, sortOrderKantine,"stad","","maaltijd","")).Returns(pakketList);
 
             // Act
             var result = await _sut.Index(_sortExpression,sortOrderKantine) as ViewResult;
@@ -189,6 +189,334 @@ namespace FoodWaste.Tests.Controllers
             Assert.NotNull(model);
         }
 
+        [Theory]
+        [InlineData(SortOrder.Descending, "LA","breda")]
+        [InlineData(SortOrder.Ascending, "LX","denbosch")]
+        [InlineData(SortOrder.Descending, "HL","tilburg")]
+        public async void PakketController_IndexSort_Stad_US_08_ReturnsSucces(SortOrder sortOrderDate, string sortOrderKantine,string sortOrderStad)
+        {
+            var _sortExpression = "";
+            if (sortOrderDate == SortOrder.Descending)
+            {
+                _sortExpression = "date_desc";
+            }
+            // mock HttpContext
+            _sut.ControllerContext = new ControllerContext
+            {
+                HttpContext = new DefaultHttpContext
+                {
+                    User = new ClaimsPrincipal(new ClaimsIdentity(new[]
+                        {
+                        new Claim(ClaimTypes.Email, "foo")
+                    }
+                    ))
+                }
+            };
+            // create TempData, otherwise crash
+            _sut.TempData = new TempDataDictionary(_sut.ControllerContext.HttpContext, Mock.Of<ITempDataProvider>());
+            var pakketList = new List<Pakket>
+            {
+                new()
+                {
+                      Id = 1,
+                      BeschrijvendeNaam = "Voedsel Pakket 1",
+                      SelectedProductId = "1",
+                      Stad = "Breda",
+                      Kantine = "LA",
+                      TijdOphalen = DateTime.Now,
+                      TijdTotOphalen = DateTime.Now,
+                      Meerderjarig = true,
+                      Prijs = 10,
+                      TypeMaaltijd = "Brood"
+
+                },
+                new()
+                {
+                      Id = 2,
+                      BeschrijvendeNaam = "Voedsel Pakket 2",
+                      SelectedProductId = "1",
+                      Stad = "Breda",
+                      Kantine = "LX",
+                      TijdOphalen = DateTime.Now,
+                      TijdTotOphalen = DateTime.Now,
+                      Meerderjarig = true,
+                      Prijs = 10,
+                      TypeMaaltijd = "Brood"
+                },
+                new()
+                {
+                      Id = 3,
+                      BeschrijvendeNaam = "Voedsel Pakket 2",
+                      SelectedProductId = "1",
+                      Stad = "Breda",
+                      Kantine = "HL",
+                      TijdOphalen = DateTime.Now,
+                      TijdTotOphalen = DateTime.Now,
+                      Meerderjarig = true,
+                      Prijs = 10,
+                      TypeMaaltijd = "Brood"
+                }
+                ,
+                new()
+                {
+                      Id = 4,
+                      BeschrijvendeNaam = "Voedsel Pakket 2",
+                      SelectedProductId = "1",
+                      Stad = "Breda",
+                      Kantine = "LD",
+                      TijdOphalen = DateTime.Now,
+                      TijdTotOphalen = DateTime.Now,
+                      Meerderjarig = true,
+                      Prijs = 10,
+                      TypeMaaltijd = "Brood"
+                } };
+            _pakketRepo.Setup(pakketRepo => pakketRepo.GetAll("date", "kantine", sortOrderDate, sortOrderKantine, "stad", sortOrderStad, "maaltijd", "")).Returns(pakketList);
+
+            // Act
+            var result = await _sut.Index(_sortExpression, sortOrderKantine,sortOrderStad) as ViewResult;
+
+            //Assert
+            var model = result.Model as IEnumerable<Pakket>;
+            Assert.NotNull(model);
+        }
+
+
+        [Fact]
+        public async void PakketController_Create_ReturnSucces()
+        {
+
+            //Arrange
+
+            // mock HttpContext
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+           {
+                 new Claim(ClaimTypes.Name, "username"),
+                 new Claim(ClaimTypes.NameIdentifier, "userId"),
+                 new Claim("name", "John Doe"),
+           }, "mock"));
+            var controller = _sut;
+            controller.ControllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext() { User = user }
+            };
+
+
+            var pakketVM = new CreatePakketViewModel()
+            {
+                Id = 1,
+                ProductCollectie = new Product[] { new() { BeschrijvendeNaam = "Product 1", Foto = "www.img.com", Alcohol = true, Id = 1 } },
+                AppUserId = user.GetUserId(),
+                Kantine = Locatie.LA,
+                SelectIDArray = new string[] { "1" },
+            };
+
+            var pakket = new Pakket()
+            {
+                BeschrijvendeNaam = pakketVM.BeschrijvendeNaam,
+                SelectedProductId = "1",
+                Stad = pakketVM.Stad.ToString(),
+                Kantine = pakketVM.Kantine.ToString(),
+                TijdOphalen = pakketVM.TijdOphalen,
+                TijdTotOphalen = pakketVM.TijdTotOphalen,
+                Meerderjarig = true,
+                Prijs = pakketVM.Prijs,
+                TypeMaaltijd = pakketVM.TypeMaaltijd.ToString(),
+            };
+
+
+            // create TempData, otherwise crash
+            _sut.TempData = new TempDataDictionary(_sut.ControllerContext.HttpContext, Mock.Of<ITempDataProvider>());
+
+
+            //Act
+            var result = await _sut.Create(pakketVM) as RedirectToActionResult;
+
+
+            //Assert
+            result.Should().BeOfType(typeof(RedirectToActionResult));
+            result.Equals(true);
+            result.ActionName.Equals("Index");
+
+        }
+        [Fact]
+        public async void PakketController_Detail_With_Productlist_ReturnSucces()
+        {
+
+            //Arrange
+
+            // mock HttpContext
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+           {
+                 new Claim(ClaimTypes.Name, "username"),
+                 new Claim(ClaimTypes.NameIdentifier, "userId"),
+                 new Claim("name", "John Doe"),
+           }, "mock"));
+            var controller = _sut;
+            controller.ControllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext() { User = user }
+            };
+
+
+            var pakketVM = new EditPakketViewModel()
+            {
+                Id = 1,
+                ProductCollectie = new Product[] { new() { BeschrijvendeNaam = "Product 1", Foto = "www.img.com", Alcohol = true, Id = 1 } },
+                AppUserId = user.GetUserId(),
+                Kantine = Locatie.LA,
+                SelectIDArray = new string[] { "1" },
+            };
+
+            var pakket = new Pakket()
+            {
+                Id = pakketVM.Id,
+                BeschrijvendeNaam = pakketVM.BeschrijvendeNaam,
+                SelectedProductId = "1",
+                Stad = pakketVM.Stad.ToString(),
+                Kantine = pakketVM.Kantine.ToString(),
+                TijdOphalen = pakketVM.TijdOphalen,
+                TijdTotOphalen = pakketVM.TijdTotOphalen,
+                Meerderjarig = true,
+                Prijs = pakketVM.Prijs,
+                TypeMaaltijd = pakketVM.TypeMaaltijd.ToString(),
+            };
+
+
+            // create TempData, otherwise crash
+            _sut.TempData = new TempDataDictionary(_sut.ControllerContext.HttpContext, Mock.Of<ITempDataProvider>());
+
+            _pakketRepo.Setup(pakketRepo => pakketRepo.GetByIdAsyncNoTracking(1)).Returns(pakket);
+
+            //Act
+            var result = await _sut.Detail(1) as ViewResult;
+
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType(typeof(ViewResult));
+            result.Equals(true);
+
+        }
+
+        [Fact]
+        public async void PakketController_Edit_ReturnSucces()
+        {
+
+            //Arrange
+
+            // mock HttpContext
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+           {
+                 new Claim(ClaimTypes.Name, "username"),
+                 new Claim(ClaimTypes.NameIdentifier, "userId"),
+                 new Claim("name", "John Doe"),
+           }, "mock"));
+            var controller = _sut;
+            controller.ControllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext() { User = user }
+            };
+
+
+            var pakketVM = new EditPakketViewModel()
+            {
+                Id = 1,
+                ProductCollectie = new Product[] { new() { BeschrijvendeNaam = "Product 1", Foto = "www.img.com", Alcohol = true, Id = 1 } },
+                AppUserId = user.GetUserId(),
+                Kantine = Locatie.LA,
+                SelectIDArray = new string[] { "1" },
+            };
+
+            var pakket = new Pakket()
+            {
+                Id = pakketVM.Id,
+                BeschrijvendeNaam = pakketVM.BeschrijvendeNaam,
+                SelectedProductId = "1",
+                Stad = pakketVM.Stad.ToString(),
+                Kantine = pakketVM.Kantine.ToString(),
+                TijdOphalen = pakketVM.TijdOphalen,
+                TijdTotOphalen = pakketVM.TijdTotOphalen,
+                Meerderjarig = true,
+                Prijs = pakketVM.Prijs,
+                TypeMaaltijd = pakketVM.TypeMaaltijd.ToString(),
+            };
+
+
+            // create TempData, otherwise crash
+            _sut.TempData = new TempDataDictionary(_sut.ControllerContext.HttpContext, Mock.Of<ITempDataProvider>());
+
+            _pakketRepo.Setup(pakketRepo => pakketRepo.GetByIdAsyncNoTracking(1)).Returns(pakket);
+
+            //Act
+            var result = await _sut.Edit(1, pakketVM) as RedirectToActionResult;
+
+
+            //Assert
+            result.Should().BeOfType(typeof(RedirectToActionResult));
+            result.Equals(true);
+            result.ActionName.Equals("Index");
+
+        }
+        [Fact]
+        public async void PakketController_Edit_Return_Mag_Alleen_Als_Geen_Reservering()
+        {
+
+            //Arrange
+
+            // mock HttpContext
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+           {
+                 new Claim(ClaimTypes.Name, "username"),
+                 new Claim(ClaimTypes.NameIdentifier, "userId"),
+                 new Claim("name", "John Doe"),
+           }, "mock"));
+            var controller = _sut;
+            controller.ControllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext() { User = user }
+            };
+
+
+            var pakketVM = new EditPakketViewModel()
+            {
+                Id = 1,
+                ProductCollectie = new Product[] { new() { BeschrijvendeNaam = "Product 1", Foto = "www.img.com", Alcohol = true, Id = 1 } },
+                AppUserId = user.GetUserId(),
+                Kantine = Locatie.LA,
+                SelectIDArray = new string[] { "1" },
+            };
+
+            var pakket = new Pakket()
+            {
+                Id = pakketVM.Id,
+                BeschrijvendeNaam = pakketVM.BeschrijvendeNaam,
+                SelectedProductId = "1",
+                Stad = pakketVM.Stad.ToString(),
+                Kantine = pakketVM.Kantine.ToString(),
+                TijdOphalen = pakketVM.TijdOphalen,
+                TijdTotOphalen = pakketVM.TijdTotOphalen,
+                Meerderjarig = true,
+                Prijs = pakketVM.Prijs,
+                TypeMaaltijd = pakketVM.TypeMaaltijd.ToString(),
+                StudentenIds = "1"
+            };
+
+
+            // create TempData, otherwise crash
+            _sut.TempData = new TempDataDictionary(_sut.ControllerContext.HttpContext, Mock.Of<ITempDataProvider>());
+
+            _pakketRepo.Setup(pakketRepo => pakketRepo.GetByIdAsyncNoTracking(1)).Returns(pakket);
+
+            //Act
+            var result = await _sut.Edit(1) as RedirectToActionResult;
+
+
+            //Assert
+            result.Should().BeOfType(typeof(RedirectToActionResult));
+            result.Equals(true);
+            result.ActionName.Equals("Index");
+
+        }
 
         [Fact]
         public async void PakketController_Create_ReturnErrorNoProductSelected()
@@ -426,7 +754,125 @@ namespace FoodWaste.Tests.Controllers
 
 
 
+        [Fact]
+        public async void PakketController_Delete_ReturnSucces()
+        {
 
+            //Arrange
+
+            // mock HttpContext
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+           {
+                 new Claim(ClaimTypes.Name, "username"),
+                 new Claim(ClaimTypes.NameIdentifier, "userId"),
+                 new Claim("name", "John Doe"),
+           }, "mock"));
+            var controller = _sut;
+            controller.ControllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext() { User = user }
+            };
+
+
+            var pakketVM = new CreatePakketViewModel()
+            {
+                Id = 1,
+                ProductCollectie = new Product[] { new() { BeschrijvendeNaam = "Product 1", Foto = "www.img.com", Alcohol = true, Id = 1 } },
+                AppUserId = user.GetUserId(),
+                Kantine = Locatie.LA
+            };
+
+            var pakket = new Pakket()
+            {
+                Id = 1,
+                BeschrijvendeNaam = pakketVM.BeschrijvendeNaam,
+                SelectedProductId = "1",
+                Stad = pakketVM.Stad.ToString(),
+                Kantine = pakketVM.Kantine.ToString(),
+                TijdOphalen = pakketVM.TijdOphalen,
+                TijdTotOphalen = pakketVM.TijdTotOphalen,
+                Meerderjarig = true,
+                Prijs = pakketVM.Prijs,
+                TypeMaaltijd = pakketVM.TypeMaaltijd.ToString(),
+            };
+
+
+            // create TempData, otherwise crash
+            _sut.TempData = new TempDataDictionary(_sut.ControllerContext.HttpContext, Mock.Of<ITempDataProvider>());
+
+
+            _pakketRepo.Setup(pakketRepo => pakketRepo.GetByIdAsyncNoTracking(1)).Returns(pakket);
+
+            //Act
+            var result = await _sut.Delete(1) as ViewResult;
+
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType(typeof(ViewResult));
+            result.Equals(true);
+            result.Model.Should().BeSameAs(pakket);
+        }
+
+
+        [Fact]
+        public async void PakketController_Delete_Return_Error_Mag_Alleen_Als_Geen_Reservering()
+        {
+
+            //Arrange
+
+            // mock HttpContext
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+           {
+                 new Claim(ClaimTypes.Name, "username"),
+                 new Claim(ClaimTypes.NameIdentifier, "userId"),
+                 new Claim("name", "John Doe"),
+           }, "mock"));
+            var controller = _sut;
+            controller.ControllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext() { User = user }
+            };
+
+
+            var pakketVM = new CreatePakketViewModel()
+            {
+                Id = 1,
+                ProductCollectie = new Product[] { new() { BeschrijvendeNaam = "Product 1", Foto = "www.img.com", Alcohol = true, Id = 1 } },
+                AppUserId = user.GetUserId(),
+                Kantine = Locatie.LA
+            };
+
+            var pakket = new Pakket()
+            {
+                Id = 1,
+                BeschrijvendeNaam = pakketVM.BeschrijvendeNaam,
+                SelectedProductId = "1",
+                Stad = pakketVM.Stad.ToString(),
+                Kantine = pakketVM.Kantine.ToString(),
+                TijdOphalen = pakketVM.TijdOphalen,
+                TijdTotOphalen = pakketVM.TijdTotOphalen,
+                Meerderjarig = true,
+                Prijs = pakketVM.Prijs,
+                TypeMaaltijd = pakketVM.TypeMaaltijd.ToString(),
+                StudentenIds = "1"
+            };
+
+
+            // create TempData, otherwise crash
+            _sut.TempData = new TempDataDictionary(_sut.ControllerContext.HttpContext, Mock.Of<ITempDataProvider>());
+
+
+            _pakketRepo.Setup(pakketRepo => pakketRepo.GetByIdAsyncNoTracking(1)).Returns(pakket);
+
+            //Act
+            var result = await _sut.Delete(1) as RedirectToActionResult;
+
+
+            //Assert
+            result.Should().BeOfType(typeof(RedirectToActionResult));
+            result.Equals(true);
+        }
         [Theory]
         [InlineData(1)]
         public async void PakketController_Reserve_Return_Gebruiker_Is_Minderjarig_Alcohol_Pakket(int id)

@@ -42,11 +42,11 @@ namespace FoodWaste.Infrastructure.Repository
 
             return await _context.Products.FirstOrDefaultAsync(i => i.Id == id);
         }
-        public async Task<Product> GetByIdAsyncNoTracking(int id)
+        public Product GetByIdAsyncNoTracking(int id)
         {
             //Product product = _context.Products.Include(a => a.Address).FirstOrDefault(c => c.Id == id); TODO
 
-            return await _context.Products.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+            return  _context.Products.AsNoTracking().FirstOrDefault(i => i.Id == id);
         }
 
         public async Task<IEnumerable<Product>> GetProductByName(string name)
