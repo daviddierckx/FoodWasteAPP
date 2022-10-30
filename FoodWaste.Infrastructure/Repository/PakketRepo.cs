@@ -30,11 +30,15 @@ namespace FoodWaste.Infrastructure.Repository
             _context.Remove(pakket);
             return Save();
         }
+        public async Task<IEnumerable<Pakket>> GetAllPackets()
+        {
 
-        public  IEnumerable<Pakket> GetAll(string SortProperty, string SortPropertyKantine, SortOrder sortOrder, string sortOrderKantine,string sortpropertyStad,string sortOrderStad,string sortpropertyMaaltijd,string sortOrderMaaltijd)
+            return await _context.Pakkets.ToListAsync();
+        }
+        public IEnumerable<Pakket> GetAll(string SortProperty, string SortPropertyKantine, SortOrder sortOrder, string sortOrderKantine,string sortpropertyStad,string sortOrderStad,string sortpropertyMaaltijd,string sortOrderMaaltijd)
         {
             IEnumerable<Pakket> pakkets =  _context.Pakkets.ToList();
-
+           
             if (SortPropertyKantine.ToLower() == "kantine"){
                 if (sortOrderKantine == "LA")
                     pakkets = pakkets.Where(p => p.Kantine == "LA");

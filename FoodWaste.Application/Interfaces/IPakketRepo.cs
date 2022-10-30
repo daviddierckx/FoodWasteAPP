@@ -10,6 +10,7 @@ namespace FoodWaste.Application.Interfaces
 {
     public interface IPakketRepo
     {
+        Task<IEnumerable<Pakket>> GetAllPackets();
         IEnumerable<Pakket> GetAll(string SortProperty, string SortPropertyKantine, SortOrder sortOrder, string sortOrderKantine,string sortpropertyStad,string sortOrderStad, string sortpropertyMaaltijd, string sortOrderMaaltijd);
         Pakket GetByIdAsync(int id);
         Pakket GetByIdAsyncNoTracking(int id);
