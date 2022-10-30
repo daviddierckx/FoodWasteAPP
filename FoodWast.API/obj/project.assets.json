@@ -12666,6 +12666,7 @@
       "MySql.Data >= 8.0.31",
       "ServiceStack.Interfaces >= 6.4.0",
       "Swashbuckle.AspNetCore >= 6.4.0",
+      "Swashbuckle.AspNetCore.SwaggerGen >= 6.4.0",
       "Swashbuckle.AspNetCore.SwaggerUI >= 6.4.0"
     ]
   },
@@ -12740,6 +12741,10 @@
             "version": "[6.4.0, )"
           },
           "Swashbuckle.AspNetCore": {
+            "target": "Package",
+            "version": "[6.4.0, )"
+          },
+          "Swashbuckle.AspNetCore.SwaggerGen": {
             "target": "Package",
             "version": "[6.4.0, )"
           },
