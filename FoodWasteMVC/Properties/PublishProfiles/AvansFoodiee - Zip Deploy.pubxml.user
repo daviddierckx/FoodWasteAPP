@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA1W0fY3lP3EKOfQf2J+Dk6QAAAAACAAAAAAAQZgAAAAEAACAAAAC98KhcFdT7rMjJpZ3hjDQlmuAx7GAtRj52XskOHz4OLAAAAAAOgAAAAAIAACAAAADXQIT0rKvig1hfheLd1Zv/cnXMDfdok53Jc5O2UMic24AAAAAWF5xPp4bwanKwD39eUTpvPgruov4jW/X+FmM5XI30eiloCeIp5VaPgFYQnBybxyl1Vu82wVOkq1/PRNqmTAVncX07jG4HBhb2KwLHPVWQQiNehaRNS/ugV/JzBRbmWy+9l9RIghJ6pYi8MM2xCG6HowUsagvBm0WjbWn5EIDWwUAAAABl1vdFQit386p1/oNVmw/SwNavoQe6eI9gfzWuzZ4eZw99YQSkVIyAkcoP5GnbSsmvS1q8iiY6IGOb/+Py/det</EncryptedPassword>
+  </PropertyGroup>
+</Project>

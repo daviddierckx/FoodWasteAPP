@@ -79,11 +79,10 @@ builder.Services
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 
 app.UseHttpsRedirection();
 
@@ -91,11 +90,11 @@ app.UseAuthorization();
 app.UseAuthentication();
 app.MapControllers();
 app.MapGraphQL("/graphql");
-app.MapGet("api/pakkets", (IPakketRepo pakketRepo) =>
+app.MapGet("/pakkets", (IPakketRepo pakketRepo) =>
 {
     return pakketRepo.GetAll("date", "kantine", SortOrder.Ascending, "", "stad", "", "maaltijd", "");
 });
-app.MapGet("api/products", (IProductRepo productRepo) =>
+app.MapGet("/products", (IProductRepo productRepo) =>
 {
     return productRepo.GetAll();
 });

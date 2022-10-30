@@ -1,0 +1,12 @@
+C:\Users\dierc\OneDrive\Bureaublad\hetRondje\Food-Waste\FoodWaste.Domain\bin\Release\net6.0\FoodWaste.Domain.deps.json
+C:\Users\dierc\OneDrive\Bureaublad\hetRondje\Food-Waste\FoodWaste.Domain\bin\Release\net6.0\FoodWaste.Domain.dll
+C:\Users\dierc\OneDrive\Bureaublad\hetRondje\Food-Waste\FoodWaste.Domain\bin\Release\net6.0\FoodWaste.Domain.pdb
+C:\Users\dierc\OneDrive\Bureaublad\hetRondje\Food-Waste\FoodWaste.Domain\obj\Release\net6.0\FoodWaste.Domain.csproj.AssemblyReference.cache
+C:\Users\dierc\OneDrive\Bureaublad\hetRondje\Food-Waste\FoodWaste.Domain\obj\Release\net6.0\FoodWaste.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dierc\OneDrive\Bureaublad\hetRondje\Food-Waste\FoodWaste.Domain\obj\Release\net6.0\FoodWaste.Domain.AssemblyInfoInputs.cache
+C:\Users\dierc\OneDrive\Bureaublad\hetRondje\Food-Waste\FoodWaste.Domain\obj\Release\net6.0\FoodWaste.Domain.AssemblyInfo.cs
+C:\Users\dierc\OneDrive\Bureaublad\hetRondje\Food-Waste\FoodWaste.Domain\obj\Release\net6.0\FoodWaste.Domain.csproj.CoreCompileInputs.cache
+C:\Users\dierc\OneDrive\Bureaublad\hetRondje\Food-Waste\FoodWaste.Domain\obj\Release\net6.0\FoodWaste.Domain.dll
+C:\Users\dierc\OneDrive\Bureaublad\hetRondje\Food-Waste\FoodWaste.Domain\obj\Release\net6.0\refint\FoodWaste.Domain.dll
+C:\Users\dierc\OneDrive\Bureaublad\hetRondje\Food-Waste\FoodWaste.Domain\obj\Release\net6.0\FoodWaste.Domain.pdb
+C:\Users\dierc\OneDrive\Bureaublad\hetRondje\Food-Waste\FoodWaste.Domain\obj\Release\net6.0\ref\FoodWaste.Domain.dll
