@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodWaste.Domain", "FoodWas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodWaste.Tests", "FoodWaste.Tests\FoodWaste.Tests.csproj", "{07BD977F-8935-4831-9D84-7D33297E2660}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodWast.API", "FoodWast.API\FoodWast.API.csproj", "{B6BD7846-3EA0-46D2-9512-7611F173907E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodWast.API", "FoodWast.API\FoodWast.API.csproj", "{B6BD7846-3EA0-46D2-9512-7611F173907E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

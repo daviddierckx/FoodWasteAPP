@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodWasteMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221029144035_Initial Create")]
+    [Migration("20230119181014_Initial Create")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

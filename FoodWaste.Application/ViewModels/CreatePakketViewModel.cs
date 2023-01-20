@@ -1,15 +1,9 @@
 ﻿using FoodWaste.Domain.Enums;
 using FoodWaste.Domain;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
-using FoodWaste.Application.Validators.CustomValidation;
-using Microsoft.Build.Framework;
 using System.ComponentModel.DataAnnotations;
+using FoodWaste.Application.Validators.CustomValidation;
 
 namespace FoodWaste.Application.ViewModels
 {
