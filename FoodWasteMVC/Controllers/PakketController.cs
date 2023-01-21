@@ -141,6 +141,12 @@ namespace FoodWasteMVC.Controllers
                     ViewData["SortParamStad"] = "denbosch";
 
                     break;
+                case "tilburg":
+                    sortOrderStad = "tilburg";
+                    sortpropertyStad = "stad";
+                    ViewData["SortParamStad"] = "tilburg";
+
+                    break;
                 case "mijnstad":
                     sortOrderStad = _userRepo.GetStudentByAppuserId().StudieStad.ToLower();
                     sortpropertyStad = "stad";
