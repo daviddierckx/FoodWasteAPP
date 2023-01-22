@@ -70,12 +70,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddGraphQLServer()
-    .RegisterDbContext<ApplicationDbContext>(DbContextKind.Synchronized)
-    .AddQueryType<Query>()
-    .AddMutationType<Mutation>()
-    .AddProjections()
-    .AddFiltering().AddSorting();
-
+    .AddQueryType<Query>();
+   
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
